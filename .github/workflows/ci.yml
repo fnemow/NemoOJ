@@ -185,10 +185,12 @@ jobs:
 
       - name: 导出依赖并扫描
         run: |
+          python3 -m unittest discover -s deploy/ops -p test_osv_scan.py
           cd OJ-backend-microservice
           mvn -s ../build/maven-settings.xml -B dependency:list \
             -DincludeScope=runtime -DoutputFile=/tmp/deps.txt -DappendOutput=true
           cd ..
+          python3 -c "import runpy; m=runpy.run_path('build/osv-scan.py'); d=m['parse_deps'](['/tmp/deps.txt']); assert len(d)>=25 and any(g=='org.springframework' and a=='spring-core' for g,a,v in d), 'Incomplete runtime dependency inventory'"
           python3 build/osv-scan.py /tmp/deps.txt
 
       - name: 保存扫描结果
@@ -196,4 +198,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: osv-report
-          path: osv-report.json
+          path: |
+            osv-report.json
+            /tmp/deps.txt

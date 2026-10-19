@@ -30,7 +30,9 @@ BATCH_SIZE = 200
 VULN_DETAIL_WORKERS = 8
 
 # mvn dependency:list 的行格式: groupId:artifactId:type:version:scope
-DEP_LINE = re.compile(r"^\s*([\w.\-]+):([\w.\-]+):(\w+):([\w.\-]+):([\w\-.]+)\s*$")
+DEP_LINE = re.compile(
+    r"^\s*([\w.\-]+):([\w.\-]+):(\w+):(?:[\w.\-]+:)?([\w.\-]+):"
+    r"(compile|runtime|provided|test|system|import)(?:\s+--\s+module\b.*)?\s*$")
 
 SEVERITY_ORDER = {"CRITICAL": 0, "HIGH": 1, "MODERATE": 2, "MEDIUM": 2, "LOW": 3, "": 4}
 
@@ -171,6 +173,9 @@ def main():
 
     deps = parse_deps(sys.argv[1:])
     print(f"解析到 {len(deps)} 个去重依赖（不含 com.nemo 内部模块）", file=sys.stderr)
+    if not deps:
+        print("No dependency records parsed; refusing an empty security scan.", file=sys.stderr)
+        return 2
 
     findings = query_osv(deps)
 
