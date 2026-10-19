@@ -128,6 +128,7 @@ class OutboxTransactionIT {
 
     @Test
     @DisplayName("提交成功后事件与提交同时存在，且事件初始为待投递")
+    @Transactional
     void commitCreatesBothRowAndPendingEvent() {
         Question question = newQuestion("it-outbox-commit");
         long questionId = question.getId();
@@ -147,8 +148,17 @@ class OutboxTransactionIT {
             assertEquals(0, event.getRetryCount());
             assertEquals(OutboxStatus.PENDING, event.getStatus(), "新事件应为待投递");
             assertEquals(String.valueOf(submitId), event.getPayload(), "消息体应为提交 id");
+
+            // Inspect the initial state before commit: the real AFTER_COMMIT
+            // dispatcher may claim it immediately once it becomes visible.
+            // Then verify durability outside the transaction, without assuming
+            // that the background worker has not run yet.
+            TestTransaction.flagForCommit();
+            TestTransaction.end();
+            assertEquals(1, countSubmits(questionId), "提交记录必须真实提交到数据库");
+            assertEquals(1, countEventsFor(submitId), "事件必须与提交记录一起持久化");
         } finally {
-            // 本测试不在事务中，需显式清理，避免污染测试库
+            // 显式提交后清理测试数据；提交前断言失败时由测试事务回滚兜底
             jdbcTemplate.update("DELETE FROM outbox_event WHERE bizId = ?", submitId);
             jdbcTemplate.update("DELETE FROM question_submit WHERE questionId = ?", questionId);
             jdbcTemplate.update("DELETE FROM question WHERE id = ?", questionId);
