@@ -1,0 +1,163 @@
+# ============================================================
+# CI：按测试层次分三段，避免"全都跑不了就连单元测试也不跑"
+#
+#   1) unit         —— 无外部依赖，任何环境都能跑，必过
+#   2) integration  —— 需要 MySQL/Redis/RabbitMQ，用 services 起真实中间件
+#   3) sandbox-docker —— 需要 Docker daemon 与判题镜像，单列（本仓库当前无此环境）
+#
+# 关键点：**核对实际执行的测试数量**。
+# Maven 默认的 surefire 版本不支持 JUnit 5，会输出 "Tests run: 0" 且仍然 BUILD SUCCESS。
+# 本项目已在 POM 中固定版本，这里再用 -Dtest.count 断言一次"确实跑了"。
+# ============================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # ---------- 第一层：单元测试 ----------
+  unit:
+    name: 单元测试（无外部依赖）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 微服务单元测试
+        working-directory: OJ-backend-microservice
+        run: |
+          mvn -s ../build/maven-settings.xml -B clean test | tee /tmp/unit-ms.log
+          # 静默跳过检测：构建成功但一个测试都没跑，视为失败
+          if ! grep -qE "Tests run: [1-9][0-9]*, Failures: 0, Errors: 0" /tmp/unit-ms.log; then
+            echo "::error::微服务单元测试未实际执行，请检查 surefire 版本与测试命名"
+            exit 1
+          fi
+
+      - name: 沙箱单元测试
+        working-directory: nemo-sandbox
+        run: |
+          mvn -s ../build/maven-settings.xml -B clean test | tee /tmp/unit-sbx.log
+          if ! grep -qE "Tests run: [1-9][0-9]*, Failures: 0, Errors: 0" /tmp/unit-sbx.log; then
+            echo "::error::沙箱单元测试未实际执行"
+            exit 1
+          fi
+
+  # ---------- 第二层：集成测试（真实中间件）----------
+  integration:
+    name: 集成测试（真实 MySQL/Redis/RabbitMQ）
+    runs-on: ubuntu-latest
+    needs: unit
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-root-password
+          MYSQL_DATABASE: nemo_oj_it
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+      rabbitmq:
+        image: rabbitmq:3.13-alpine
+        env:
+          RABBITMQ_DEFAULT_USER: guest
+          RABBITMQ_DEFAULT_PASS: guest
+        ports: ['5672:5672']
+        options: >-
+          --health-cmd="rabbitmq-diagnostics -q ping"
+          --health-interval=15s --health-timeout=10s --health-retries=10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 执行数据库迁移（使用独立测试库，不连接任何生产数据）
+        env:
+          MYSQL_PWD: ci-root-password
+        run: |
+          mysql -h 127.0.0.1 -uroot -D nemo_oj_it < deploy/migration/V1__baseline_schema.sql
+          chmod +x deploy/migration/apply_migrations.sh
+          ./deploy/migration/apply_migrations.sh \
+            --host 127.0.0.1 --user root --database nemo_oj_it --baseline-through V1
+
+      - name: 微服务集成测试
+        working-directory: OJ-backend-microservice
+        env:
+          IT_DB_PASSWORD: ci-root-password
+        run: |
+          mvn -s ../build/maven-settings.xml -B -P integration verify | tee /tmp/it-ms.log
+          if ! grep -qE "Tests run: [1-9][0-9]*, Failures: 0, Errors: 0" /tmp/it-ms.log; then
+            echo "::error::集成测试未实际执行"
+            exit 1
+          fi
+
+  # ---------- 第三层：沙箱 Docker 测试（需要真实 Docker）----------
+  sandbox-docker:
+    name: 沙箱容器测试（真实 Docker）
+    runs-on: ubuntu-latest
+    needs: unit
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 预拉取判题镜像
+        run: docker pull openjdk:8-alpine
+
+      - name: 沙箱集成测试
+        working-directory: nemo-sandbox
+        env:
+          SANDBOX_SECRET: ci-sandbox-secret-0123456789
+        run: |
+          mvn -s ../build/maven-settings.xml -B -P integration verify | tee /tmp/it-sbx.log
+
+      # 说明：本仓库当前的沙箱集成测试用例需要在 Linux + Docker 下运行，
+      # 在具备该环境前，本 job 用于承接后续补充的容器行为测试（A10/A11/A13）。
+      # 未实现前不应把本 job 的"通过"当作容器行为已验证。
+
+  # ---------- 依赖安全扫描 ----------
+  security-scan:
+    name: 依赖安全扫描
+    runs-on: ubuntu-latest
+    needs: unit
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 导出依赖并扫描
+        run: |
+          cd OJ-backend-microservice
+          mvn -s ../build/maven-settings.xml -B dependency:list \
+            -DincludeScope=runtime -DoutputFile=/tmp/deps.txt -DappendOutput=true
+          cd ..
+          python3 build/osv-scan.py /tmp/deps.txt
+
+      - name: 保存扫描结果
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: osv-report
+          path: osv-report.json

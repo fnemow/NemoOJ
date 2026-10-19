@@ -1,0 +1,1888 @@
+{
+  "totalProblems": 306,
+  "newProblems": 140,
+  "publicRange": [
+    167,
+    306
+  ],
+  "topicCounts": {
+    "graph": 20,
+    "dynamic_programming": 20,
+    "strings": 20,
+    "heap_greedy": 20,
+    "ranges": 20,
+    "math": 20,
+    "search_arrays": 20
+  },
+  "difficultyCounts": {
+    "简单": 26,
+    "中等": 78,
+    "困难": 36
+  },
+  "tagCounts": {
+    "中等": 133,
+    "二分查找": 44,
+    "二叉树": 23,
+    "位运算": 24,
+    "前缀和与区间查询": 20,
+    "动态规划": 77,
+    "单调栈": 26,
+    "双指针": 56,
+    "哈希表": 43,
+    "回溯": 24,
+    "困难": 90,
+    "图论": 20,
+    "堆与贪心": 26,
+    "字符串": 49,
+    "广度优先搜索": 26,
+    "排序": 40,
+    "数学": 66,
+    "数组": 145,
+    "栈": 34,
+    "深度优先搜索": 45,
+    "滑动窗口": 21,
+    "矩阵": 31,
+    "简单": 83,
+    "递归": 54,
+    "链表": 23
+  },
+  "handCalculatedExamples": 280,
+  "acmCases": 2278,
+  "functionCases": 2278,
+  "localReferenceAndIoChecks": 4556,
+  "sha256": "ff19a4a25c8efbc5bdef559abf2ec4e85083162b8dd81cd2cd19b0f972e8bce3",
+  "problems": [
+    {
+      "problemNo": 167,
+      "title": "无向图的连通分量",
+      "tags": [
+        "简单",
+        "图论"
+      ],
+      "methodName": "connectedComponents",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 168,
+      "title": "有向图两点可达性",
+      "tags": [
+        "简单",
+        "图论"
+      ],
+      "methodName": "directedReachable",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 169,
+      "title": "无权图最短距离",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "unweightedDistance",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 170,
+      "title": "判断图是否为二分图",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "isBipartiteGraph",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 171,
+      "title": "字典序最小拓扑序",
+      "tags": [
+        "中等",
+        "图论",
+        "堆与贪心"
+      ],
+      "methodName": "lexicographicTopo",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 172,
+      "title": "课程依赖能否全部完成",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "canFinishCourses",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 173,
+      "title": "完成课程的最少学期",
+      "tags": [
+        "困难",
+        "图论",
+        "动态规划"
+      ],
+      "methodName": "minimumSemesters",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 174,
+      "title": "有向无环图最长路径",
+      "tags": [
+        "中等",
+        "图论",
+        "动态规划"
+      ],
+      "methodName": "dagLongestPath",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 175,
+      "title": "非负权图单源最短路",
+      "tags": [
+        "中等",
+        "图论",
+        "堆与贪心"
+      ],
+      "methodName": "singleSourceDistances",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 176,
+      "title": "网络信号传播时间",
+      "tags": [
+        "中等",
+        "图论",
+        "堆与贪心"
+      ],
+      "methodName": "networkSignalTime",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 177,
+      "title": "限制中转次数的航线费用",
+      "tags": [
+        "困难",
+        "图论",
+        "动态规划"
+      ],
+      "methodName": "cheapestLimitedFlight",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 178,
+      "title": "最小生成树费用",
+      "tags": [
+        "中等",
+        "图论",
+        "排序"
+      ],
+      "methodName": "minimumSpanningCost",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 179,
+      "title": "树的最小高度根节点",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "minimumHeightRoots",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "graph"
+    },
+    {
+      "problemNo": 180,
+      "title": "无向树的直径长度",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "undirectedTreeDiameter",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 181,
+      "title": "无权图最短路径方案数",
+      "tags": [
+        "困难",
+        "图论",
+        "动态规划"
+      ],
+      "methodName": "countShortestPaths",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 182,
+      "title": "最终安全的有向图顶点",
+      "tags": [
+        "困难",
+        "图论"
+      ],
+      "methodName": "eventuallySafeVertices",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 183,
+      "title": "无向图的桥数量",
+      "tags": [
+        "困难",
+        "图论"
+      ],
+      "methodName": "countGraphBridges",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "graph"
+    },
+    {
+      "problemNo": 184,
+      "title": "有向图强连通分量数量",
+      "tags": [
+        "困难",
+        "图论"
+      ],
+      "methodName": "strongComponentCount",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 185,
+      "title": "城市省份数量",
+      "tags": [
+        "中等",
+        "图论",
+        "矩阵"
+      ],
+      "methodName": "provinceCount",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "graph"
+    },
+    {
+      "problemNo": 186,
+      "title": "使树恢复无环的最后一条边",
+      "tags": [
+        "中等",
+        "图论"
+      ],
+      "methodName": "lastRedundantEdge",
+      "acmCases": 12,
+      "functionCases": 12,
+      "group": "graph"
+    },
+    {
+      "problemNo": 187,
+      "title": "零一背包最大价值",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "zeroOnePack",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 188,
+      "title": "完全背包最大价值",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "completePack",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 189,
+      "title": "多重背包最大价值",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "boundedPack",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 190,
+      "title": "等和子集划分",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "canPartitionEqual",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 191,
+      "title": "两堆石头的最小重量差",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "minimumStoneDifference",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 192,
+      "title": "目标和正负号方案数",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "targetSignWays",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 193,
+      "title": "硬币组合方案数",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "coinCombinationWays",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 194,
+      "title": "有序整数组合数量",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "orderedSumWays",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 195,
+      "title": "直线房屋的最大收益",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "robLinearHouses",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 196,
+      "title": "环形房屋的最大收益",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "robCircularHouses",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 197,
+      "title": "一次股票交易的最大利润",
+      "tags": [
+        "简单",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "singleStockProfit",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 198,
+      "title": "不限次数股票交易的最大利润",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组",
+        "堆与贪心"
+      ],
+      "methodName": "unlimitedStockProfit",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 199,
+      "title": "至多两次股票交易",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "twoStockTransactions",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 200,
+      "title": "带冷冻期的股票交易",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "stockWithCooldown",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 201,
+      "title": "带手续费的股票交易",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "stockWithFee",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 202,
+      "title": "不同子序列的数量",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组",
+        "字符串"
+      ],
+      "methodName": "distinctSubsequenceWays",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 203,
+      "title": "交错字符串判定",
+      "tags": [
+        "中等",
+        "动态规划",
+        "数组",
+        "字符串"
+      ],
+      "methodName": "isInterleaving",
+      "acmCases": 32,
+      "functionCases": 32,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 204,
+      "title": "通配符整串匹配",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组",
+        "字符串"
+      ],
+      "methodName": "wildcardFullMatch",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 205,
+      "title": "回文划分的最少切割",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组",
+        "字符串"
+      ],
+      "methodName": "minimumPalindromeCuts",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 206,
+      "title": "戳气球的最大得分",
+      "tags": [
+        "困难",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "maximumBalloonCoins",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "dynamic_programming"
+    },
+    {
+      "problemNo": 207,
+      "title": "查找全部模式串位置",
+      "tags": [
+        "中等",
+        "字符串"
+      ],
+      "methodName": "allPatternPositions",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 208,
+      "title": "最长相同真前后缀",
+      "tags": [
+        "中等",
+        "字符串"
+      ],
+      "methodName": "longestProperBorder",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 209,
+      "title": "字符串的最短循环节",
+      "tags": [
+        "中等",
+        "字符串"
+      ],
+      "methodName": "shortestRepeatUnit",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 210,
+      "title": "字符串左旋匹配偏移",
+      "tags": [
+        "中等",
+        "字符串"
+      ],
+      "methodName": "minimumRotationOffset",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 211,
+      "title": "前补字符形成最短回文",
+      "tags": [
+        "困难",
+        "字符串"
+      ],
+      "methodName": "shortestFrontPalindrome",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 212,
+      "title": "最长回文子串",
+      "tags": [
+        "中等",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "longestPalindromicSubstring",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 213,
+      "title": "回文子串总数",
+      "tags": [
+        "中等",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "countPalindromicSubstrings",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 214,
+      "title": "最长回文子序列长度",
+      "tags": [
+        "中等",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "longestPalindromeSubsequence",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 215,
+      "title": "插入字符形成回文的最少次数",
+      "tags": [
+        "困难",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "minimumPalindromeInsertions",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 216,
+      "title": "最长公共连续子串长度",
+      "tags": [
+        "中等",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "longestCommonSubstring",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 217,
+      "title": "最短公共超序列长度",
+      "tags": [
+        "困难",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "shortestSupersequenceLength",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "strings"
+    },
+    {
+      "problemNo": 218,
+      "title": "游程编码字符串",
+      "tags": [
+        "简单",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "runLengthEncode",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "strings"
+    },
+    {
+      "problemNo": 219,
+      "title": "嵌套重复编码解码",
+      "tags": [
+        "中等",
+        "字符串",
+        "栈"
+      ],
+      "methodName": "decodeNestedRepeats",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "strings"
+    },
+    {
+      "problemNo": 220,
+      "title": "删除连续 K 个相同字符",
+      "tags": [
+        "中等",
+        "字符串",
+        "栈"
+      ],
+      "methodName": "removeAdjacentGroups",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "strings"
+    },
+    {
+      "problemNo": 221,
+      "title": "带退格字符串比较",
+      "tags": [
+        "简单",
+        "字符串",
+        "栈",
+        "双指针"
+      ],
+      "methodName": "backspaceStringsEqual",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "strings"
+    },
+    {
+      "problemNo": 222,
+      "title": "反转句子中的单词顺序",
+      "tags": [
+        "简单",
+        "字符串"
+      ],
+      "methodName": "reverseSentenceWords",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "strings"
+    },
+    {
+      "problemNo": 223,
+      "title": "拼接整数形成最大数",
+      "tags": [
+        "中等",
+        "字符串",
+        "排序",
+        "堆与贪心"
+      ],
+      "methodName": "largestConcatenatedNumber",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "strings"
+    },
+    {
+      "problemNo": 224,
+      "title": "字母异位词分组数量",
+      "tags": [
+        "简单",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "anagramGroupCount",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "strings"
+    },
+    {
+      "problemNo": 225,
+      "title": "词典拆分可行性",
+      "tags": [
+        "中等",
+        "字符串",
+        "动态规划",
+        "哈希表"
+      ],
+      "methodName": "canSegmentWords",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "strings"
+    },
+    {
+      "problemNo": 226,
+      "title": "词典拆分方案数",
+      "tags": [
+        "困难",
+        "字符串",
+        "动态规划",
+        "哈希表"
+      ],
+      "methodName": "wordSegmentationWays",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "strings"
+    },
+    {
+      "problemNo": 227,
+      "title": "分配饼干的最多满足人数",
+      "tags": [
+        "简单",
+        "堆与贪心",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "maximumSatisfiedChildren",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 228,
+      "title": "跳跃游戏可达性",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "canReachLastIndex",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 229,
+      "title": "跳跃游戏最少步数",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "minimumJumpCount",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 230,
+      "title": "环形加油站的最小起点",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "单调栈"
+      ],
+      "methodName": "minimumGasStationStart",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 231,
+      "title": "按评分分糖果的最小总量",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "minimumCandyTotal",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 232,
+      "title": "柠檬水找零",
+      "tags": [
+        "简单",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "canMakeLemonadeChange",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 233,
+      "title": "带冷却间隔的任务调度",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "minimumTaskIntervals",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 234,
+      "title": "会议室最少数量",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "排序"
+      ],
+      "methodName": "minimumMeetingRooms",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 235,
+      "title": "最多参加一天活动的数量",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "排序"
+      ],
+      "methodName": "maximumDailyEvents",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 236,
+      "title": "选择项目的最大最终资本",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组",
+        "排序"
+      ],
+      "methodName": "maximumFinalCapital",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 237,
+      "title": "限截止时间的最多课程",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组",
+        "排序"
+      ],
+      "methodName": "maximumScheduledCourses",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 238,
+      "title": "到达终点的最少加油次数",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "minimumRefuelStops",
+      "acmCases": 12,
+      "functionCases": 12,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 239,
+      "title": "合并绳子的最小费用",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "minimumRopeMergeCost",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 240,
+      "title": "碰撞石头的最后重量",
+      "tags": [
+        "简单",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "lastStoneWeight",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 241,
+      "title": "数组中最小的 K 个元素",
+      "tags": [
+        "简单",
+        "堆与贪心",
+        "数组",
+        "排序"
+      ],
+      "methodName": "smallestKValues",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 242,
+      "title": "数组中的第 K 大元素",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "kthLargestValue",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 243,
+      "title": "出现频率最高的 K 个值",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "哈希表",
+        "排序"
+      ],
+      "methodName": "topKFrequentValues",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 244,
+      "title": "数据流中位数的两倍",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组"
+      ],
+      "methodName": "twicePrefixMedians",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 245,
+      "title": "行有序矩阵的第 K 小元素",
+      "tags": [
+        "中等",
+        "堆与贪心",
+        "数组",
+        "矩阵"
+      ],
+      "methodName": "kthSmallestRowSorted",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 246,
+      "title": "带利润任务的最优排程",
+      "tags": [
+        "困难",
+        "堆与贪心",
+        "数组",
+        "动态规划",
+        "二分查找",
+        "排序"
+      ],
+      "methodName": "maximumJobProfit",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "heap_greedy"
+    },
+    {
+      "problemNo": 247,
+      "title": "静态数组区间求和",
+      "tags": [
+        "简单",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "staticRangeSums",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 248,
+      "title": "静态数组区间异或",
+      "tags": [
+        "简单",
+        "前缀和与区间查询",
+        "数组",
+        "位运算"
+      ],
+      "methodName": "staticRangeXors",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 249,
+      "title": "静态数组区间最大公约数",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "数学"
+      ],
+      "methodName": "staticRangeGcds",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 250,
+      "title": "静态数组区间最小值",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "staticRangeMinima",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 251,
+      "title": "批量区间加法后的数组",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "batchRangeAdd",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 252,
+      "title": "单点赋值与区间求和",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "pointAssignmentRangeSum",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 253,
+      "title": "动态区间加法与区间求和",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "rangeAdditionRangeSum",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 254,
+      "title": "二维矩阵矩形区域求和",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "矩阵"
+      ],
+      "methodName": "matrixRectangleSums",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 255,
+      "title": "二维矩形增量更新",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "矩阵"
+      ],
+      "methodName": "rectangleIncrementFlat",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 256,
+      "title": "和能被 K 整除的子数组数",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "divisibleSubarrayCount",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 257,
+      "title": "目标和的最长连续子数组",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "longestSubarrayWithSum",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 258,
+      "title": "零一数量相等的最长子数组",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "longestBalancedBinary",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 259,
+      "title": "全部数组平衡下标",
+      "tags": [
+        "简单",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "allPivotIndices",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 260,
+      "title": "除自身以外的数组乘积",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组"
+      ],
+      "methodName": "productWithoutSelf",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 261,
+      "title": "每个元素右侧较小值数量",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "countSmallerToRight",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 262,
+      "title": "指定和区间的子数组数量",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "countSubarraySumRange",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 263,
+      "title": "含负数的最短达标子数组",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组",
+        "单调栈"
+      ],
+      "methodName": "shortestSubarrayAtLeast",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 264,
+      "title": "二维矩阵最大子矩形和",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组",
+        "矩阵",
+        "动态规划"
+      ],
+      "methodName": "maximumSubrectangleSum",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 265,
+      "title": "二维矩阵目标和子矩形数",
+      "tags": [
+        "困难",
+        "前缀和与区间查询",
+        "数组",
+        "矩阵",
+        "哈希表"
+      ],
+      "methodName": "countTargetSubmatrices",
+      "acmCases": 15,
+      "functionCases": 15,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 266,
+      "title": "整数区间的最大覆盖次数",
+      "tags": [
+        "中等",
+        "前缀和与区间查询",
+        "数组",
+        "排序"
+      ],
+      "methodName": "maximumIntegerOverlap",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "ranges"
+    },
+    {
+      "problemNo": 267,
+      "title": "两个非负整数的最大公约数",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "greatestCommonDivisor",
+      "acmCases": 20,
+      "functionCases": 20,
+      "group": "math"
+    },
+    {
+      "problemNo": 268,
+      "title": "两个非负整数的最小公倍数",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "leastCommonMultiple",
+      "acmCases": 21,
+      "functionCases": 21,
+      "group": "math"
+    },
+    {
+      "problemNo": 269,
+      "title": "快速幂取模",
+      "tags": [
+        "中等",
+        "数学",
+        "位运算"
+      ],
+      "methodName": "powerModulo",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "math"
+    },
+    {
+      "problemNo": 270,
+      "title": "整数的模逆元",
+      "tags": [
+        "中等",
+        "数学"
+      ],
+      "methodName": "modularMultiplicativeInverse",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "math"
+    },
+    {
+      "problemNo": 271,
+      "title": "阶乘末尾零的数量",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "factorialTrailingZeroes",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "math"
+    },
+    {
+      "problemNo": 272,
+      "title": "快乐数判定",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "isHappyNumber",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "math"
+    },
+    {
+      "problemNo": 273,
+      "title": "完全数判定",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "isPerfectNumber",
+      "acmCases": 12,
+      "functionCases": 12,
+      "group": "math"
+    },
+    {
+      "problemNo": 274,
+      "title": "质因子总数量",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "primeFactorsWithMultiplicity",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "math"
+    },
+    {
+      "problemNo": 275,
+      "title": "正整数约数数量",
+      "tags": [
+        "简单",
+        "数学"
+      ],
+      "methodName": "positiveDivisorCount",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "math"
+    },
+    {
+      "problemNo": 276,
+      "title": "欧拉函数值",
+      "tags": [
+        "中等",
+        "数学"
+      ],
+      "methodName": "eulerTotient",
+      "acmCases": 14,
+      "functionCases": 14,
+      "group": "math"
+    },
+    {
+      "problemNo": 277,
+      "title": "闭区间内质数的个数",
+      "tags": [
+        "中等",
+        "数学"
+      ],
+      "methodName": "primeCountInInterval",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "math"
+    },
+    {
+      "problemNo": 278,
+      "title": "组合数取模",
+      "tags": [
+        "中等",
+        "数学",
+        "动态规划"
+      ],
+      "methodName": "binomialModulo",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "math"
+    },
+    {
+      "problemNo": 279,
+      "title": "合法括号序列的数量",
+      "tags": [
+        "中等",
+        "数学",
+        "动态规划"
+      ],
+      "methodName": "balancedBracketSequenceCount",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "math"
+    },
+    {
+      "problemNo": 280,
+      "title": "错排排列数量",
+      "tags": [
+        "中等",
+        "数学",
+        "动态规划"
+      ],
+      "methodName": "derangementCount",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "math"
+    },
+    {
+      "problemNo": 281,
+      "title": "整数拆分的最大乘积",
+      "tags": [
+        "中等",
+        "数学",
+        "堆与贪心"
+      ],
+      "methodName": "maximumIntegerSplitProduct",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "math"
+    },
+    {
+      "problemNo": 282,
+      "title": "零到 N 中数字一的总出现次数",
+      "tags": [
+        "困难",
+        "数学"
+      ],
+      "methodName": "countDecimalOnes",
+      "acmCases": 13,
+      "functionCases": 13,
+      "group": "math"
+    },
+    {
+      "problemNo": 283,
+      "title": "第 N 个丑数",
+      "tags": [
+        "中等",
+        "数学",
+        "动态规划"
+      ],
+      "methodName": "nthUglyNumber",
+      "acmCases": 16,
+      "functionCases": 16,
+      "group": "math"
+    },
+    {
+      "problemNo": 284,
+      "title": "约瑟夫环最后的编号",
+      "tags": [
+        "中等",
+        "数学"
+      ],
+      "methodName": "josephusSurvivor",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "math"
+    },
+    {
+      "problemNo": 285,
+      "title": "整除商的求和",
+      "tags": [
+        "困难",
+        "数学"
+      ],
+      "methodName": "floorDivisionSum",
+      "acmCases": 12,
+      "functionCases": 12,
+      "group": "math"
+    },
+    {
+      "problemNo": 286,
+      "title": "两条同余方程的最小解",
+      "tags": [
+        "困难",
+        "数学"
+      ],
+      "methodName": "smallestCongruenceSolution",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "math"
+    },
+    {
+      "problemNo": 287,
+      "title": "有序数组下界位置",
+      "tags": [
+        "简单",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "lowerBoundPosition",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 288,
+      "title": "有序数组上界位置",
+      "tags": [
+        "简单",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "upperBoundPosition",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 289,
+      "title": "搜索旋转后的不同值数组",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "searchDistinctRotated",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 290,
+      "title": "含重复值旋转数组最小值",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "minimumRotatedWithDuplicates",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 291,
+      "title": "严格山脉数组的峰顶下标",
+      "tags": [
+        "简单",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "strictMountainPeak",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 292,
+      "title": "整数平方根向下取整",
+      "tags": [
+        "简单",
+        "数组",
+        "二分查找",
+        "数学"
+      ],
+      "methodName": "integerSquareRoot",
+      "acmCases": 12,
+      "functionCases": 12,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 293,
+      "title": "第 K 个缺失正整数",
+      "tags": [
+        "简单",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "kthAbsentPositive",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 294,
+      "title": "有序数组目标值首尾位置",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "targetValueRange",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 295,
+      "title": "寻找唯一重复的正整数",
+      "tags": [
+        "中等",
+        "数组",
+        "双指针"
+      ],
+      "methodName": "findOnlyDuplicate",
+      "acmCases": 17,
+      "functionCases": 17,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 296,
+      "title": "最小缺失正整数",
+      "tags": [
+        "困难",
+        "数组"
+      ],
+      "methodName": "firstAbsentPositive",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 297,
+      "title": "乘法表中的第 K 小数",
+      "tags": [
+        "困难",
+        "数组",
+        "二分查找",
+        "数学"
+      ],
+      "methodName": "kthMultiplicationTable",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 298,
+      "title": "按顺序运输包裹的最小载重",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "minimumShippingCapacity",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 299,
+      "title": "相邻花朵制作花束的最早日期",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "earliestBouquetDay",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 300,
+      "title": "吃完香蕉的最低速度",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "minimumBananaSpeed",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 301,
+      "title": "分割数组的最小最大段和",
+      "tags": [
+        "困难",
+        "数组",
+        "二分查找"
+      ],
+      "methodName": "minimumLargestSplitSum",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 302,
+      "title": "放置 K 个点的最大最小间距",
+      "tags": [
+        "中等",
+        "数组",
+        "二分查找",
+        "排序"
+      ],
+      "methodName": "maximizeMinimumPlacement",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 303,
+      "title": "第 K 小的数对绝对差",
+      "tags": [
+        "困难",
+        "数组",
+        "二分查找",
+        "双指针"
+      ],
+      "methodName": "kthSmallestPairDistance",
+      "acmCases": 18,
+      "functionCases": 18,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 304,
+      "title": "重要翻转对数量",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "importantReversePairCount",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 305,
+      "title": "连续子数组最大乘积",
+      "tags": [
+        "中等",
+        "数组",
+        "动态规划"
+      ],
+      "methodName": "maximumSubarrayProduct",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "search_arrays"
+    },
+    {
+      "problemNo": 306,
+      "title": "环形数组最大连续和",
+      "tags": [
+        "中等",
+        "数组",
+        "动态规划"
+      ],
+      "methodName": "maximumCircularSubarraySum",
+      "acmCases": 19,
+      "functionCases": 19,
+      "group": "search_arrays"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+# 集成测试配置（仅 src/test，不会进入生产产物）
+#
+# 运行前提：
+#   1) 一个已执行过 deploy/migration 的测试库（默认 nemo_oj_it）
+#   2) 通过环境变量提供连接信息，仓库内不保存口令
+#
+# 运行方式：
+#   IT_DB_PASSWORD='<口令>' mvn -P integration verify
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${IT_DB_URL:jdbc:mysql://localhost:3306/nemo_oj_it?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${IT_DB_USERNAME:root}
+    password: ${IT_DB_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 6
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+# 集成测试不主动投递，避免测试数据被真的发到 MQ；
+# 投递行为由专门的用例显式触发。
+outbox:
+  poll-interval-ms: 3600000
+  reconcile-interval-ms: 3600000
+
+server:
+  port: 0
+
+knife4j:
+  enable: false
+
+# 集成测试用的内部凭据（仅测试环境，与生产无关）
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET:it-internal-secret-0123456789}

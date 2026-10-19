@@ -1,0 +1,111 @@
+# 公共配置：环境无关部分
+# 环境相关（数据库、Redis、Nacos、凭据）一律放在 application-dev.yml / application-prod.yml，
+# 且只通过环境变量注入，避免真实凭据进入源码与产物。
+spring:
+  application:
+    name: OJ-backend-user-service
+  # 默认 dev；生产以 SPRING_PROFILES_ACTIVE=prod 启动
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # Redis Session：user 与 question 服务共享同一份登录态。
+  # namespace 必须与其它读取该 Session 的服务保持一致。
+  session:
+    store-type: redis
+    timeout: 2592000
+    redis:
+      namespace: nemo-oj:session
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+server:
+  address: 0.0.0.0
+  servlet:
+    context-path: /api/user
+    session:
+      cookie:
+        # 30 天
+        max-age: 2592000
+        path: "/api"
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+knife4j:
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.nemo.project.controller
+
+judge:
+  codesandbox:
+    type: example
+
+# 登录/注册限流（T09）。计数存 Redis，多实例共享同一配额。
+ratelimit:
+  # 仅在部署于可信反向代理之后才可开启；否则客户端可伪造 X-Forwarded-For 绕过 IP 限流
+  trust-forwarded-for: ${RATELIMIT_TRUST_XFF:false}
+  max-request-body-bytes: ${RATELIMIT_MAX_BODY_BYTES:1048576}
+  login:
+    ip-limit: ${RATELIMIT_LOGIN_IP:60}
+    account-limit: ${RATELIMIT_LOGIN_ACCOUNT:20}
+    window-seconds: ${RATELIMIT_LOGIN_WINDOW:60}
+
+# ===== 监控与健康检查（T10）=====
+management:
+  # 管理端点使用独立端口，且不通过网关暴露（见 deploy/NETWORK-AND-SECURITY.md）。
+  # 部署时该端口必须只允许内部网络访问，不得对公网开放。
+  server:
+    port: ${MANAGEMENT_PORT:9102}
+  endpoints:
+    web:
+      exposure:
+        # 只暴露必要端点；env/beans/heapdump 等会泄漏配置或内存内容，一律不开放
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+      group:
+        # 存活：只包含应用自身状态。
+        # 绝不能把数据库/Redis/RabbitMQ 放进存活判定——中间件抖动会导致
+        # 容器被反复重启，而重启并不能修复依赖，反而放大故障。
+        liveness:
+          include: livenessState
+        # 就绪：反映"当前能否提供服务"，包含关键依赖
+        readiness:
+          include: readinessState,db,redis
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+# 日志模板：输出 requestId，使一次请求在多个服务中的日志可以串联。
+# 该值由 RequestIdFilter 校验后写入 MDC，跨服务经 Feign 透传。
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{requestId:-}] %logger{36} - %msg%n"
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.nemo: ${LOG_LEVEL_APP:INFO}
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
+  logback:
+    rollingpolicy:
+      # 日志轮转：单文件 50MB、保留 7 天、总量上限 2GB，避免磁盘被写满
+      max-file-size: ${LOG_MAX_FILE_SIZE:50MB}
+      max-history: ${LOG_MAX_HISTORY:7}
+      total-size-cap: ${LOG_TOTAL_SIZE_CAP:2GB}

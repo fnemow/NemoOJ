@@ -1,0 +1,11 @@
+# Tested resolved versions are recorded in requirements-lock.txt.
+langchain>=1.0,<2
+langchain-openai>=1.0,<2
+langgraph>=1.0,<2
+langgraph-checkpoint-sqlite>=3.0,<4
+langchain-text-splitters>=1.0,<2
+pydantic>=2.9,<3
+pydantic-settings>=2.6,<3
+python-dotenv>=1.0,<2
+json-repair>=0.63.5,<0.64
+numpy>=2.0,<3

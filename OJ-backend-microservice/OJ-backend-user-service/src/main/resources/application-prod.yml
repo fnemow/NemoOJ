@@ -1,0 +1,64 @@
+# 生产环境
+#
+# 关键约定：以下占位符 **不提供默认值**。
+# 若对应环境变量未设置，Spring 在启动阶段就会因无法解析占位符而失败退出，
+# 不会静默回退到示例凭据（这是本文件的全部意义，请勿为它们补充默认值）。
+#
+# 期望在生产缺失即启动失败的配置：
+#   DB_URL / DB_USERNAME / DB_PASSWORD
+#   REDIS_HOST
+#   NACOS_SERVER_ADDR
+#   SESSION_COOKIE_SECURE 之外的所有上述项
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      connection-timeout: 10000
+  data:
+    redis:
+      database: ${REDIS_DATABASE:0}
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+      password: ${REDIS_PASSWORD:}
+
+server:
+  port: ${SERVER_PORT:8102}
+  servlet:
+    session:
+      cookie:
+        # 生产只暴露 HTTPS 入口，Cookie 必须带 Secure，防止明文回传
+        secure: ${SESSION_COOKIE_SECURE:true}
+        http-only: true
+        same-site: lax
+
+# 生产关闭 SQL 明文输出
+mybatis-plus:
+  configuration:
+    log-impl: ''
+
+# 生产关闭公开接口文档（需要诊断时通过内网临时开启）
+knife4j:
+  enable: false
+  production: true
+
+# 内部服务调用凭据：所有业务服务必须配置为同一个值，长度 >= 16。
+# 不提供默认值——缺失时启动失败，避免内部接口在无有效凭据的情况下运行。
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET}
+
+security:
+  csrf:
+    enabled: true
+
+registration:
+  enabled: ${REGISTRATION_ENABLED:false}

@@ -1,0 +1,17 @@
+[Unit]
+Description=NemoOJ AI cloud stack
+Wants=network-online.target
+Requires=docker.service wg-quick@wg0.service
+After=network-online.target docker.service wg-quick@wg0.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/nemo-ai
+ExecStart=/usr/bin/docker compose --env-file deploy/.env.agent -f deploy/compose.agent-cloud.yml up -d --no-build
+ExecStop=/usr/bin/docker compose --env-file deploy/.env.agent -f deploy/compose.agent-cloud.yml stop
+TimeoutStartSec=180
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

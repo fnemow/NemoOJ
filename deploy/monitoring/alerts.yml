@@ -1,0 +1,163 @@
+# NemoOJ 告警规则（Prometheus 格式）
+#
+# 每条规则都对应一个**已经存在**的指标，不是设想中的指标。
+# 指标来源见各服务的 /actuator/prometheus（管理端口，仅内部网络可达）。
+#
+# 设计约定：
+#   * 标签只使用固定的枚举值（服务名、状态），不使用 submitId/eventId 这类
+#     每次调用都不同的值——那会让时间序列数量随业务量无限增长。
+#   * 单条提交的排查靠日志的 requestId 串联，不靠指标。
+#   * 每条告警都写明"恢复条件"，避免恢复后仍持续告警。
+
+groups:
+  - name: nemo-oj-availability
+    rules:
+      # ---- 可用性 ----
+      - alert: ServiceDown
+        expr: up{job="nemo-oj"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "服务 {{ $labels.instance }} 无法抓取"
+          # 恢复条件：抓取恢复成功
+          description: "连续 1 分钟抓取失败。注意：存活探针不受中间件故障影响，此项失败说明进程本身有问题。"
+
+      - alert: ServiceNotReady
+        expr: health{job="nemo-oj",status="readiness"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "服务 {{ $labels.instance }} 未就绪"
+          description: "关键依赖不可用，实例已停止接单。依赖恢复后会自动回到就绪。"
+
+  - name: nemo-oj-outbox
+    rules:
+      # ---- 投递积压 ----
+      - alert: OutboxBacklogGrowing
+        expr: nemo_outbox_pending_events > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "发件箱积压 {{ $value }} 条"
+          description: "待投递事件持续超过 100 条达 5 分钟。恢复条件：降至 100 以下并保持。"
+
+      # 最老等待时长比条数更能说明问题：条数少但等待很久，同样意味着投递已经卡住
+      - alert: OutboxOldestWaitTooLong
+        expr: nemo_outbox_oldest_wait_seconds > 300
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "最老待投递事件已等待 {{ $value }} 秒"
+          description: "提交已经落库但迟迟没送到判题队列，用户会一直停在待判题。先查 MQ 连通性与 routing key。"
+
+      # 永久失败必须人工处理，不能只躺在库里
+      - alert: OutboxDeadEvents
+        expr: nemo_outbox_dead_events > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "存在 {{ $value }} 条永久失败的发件箱事件"
+          description: "重试已耗尽，这些提交永远不会被判题。处理办法见 deploy/migration/README.md。"
+
+  - name: nemo-oj-judge
+    rules:
+      # ---- 判题容量与恢复 ----
+      # 判题服务的就绪判定已包含沙箱（见 SandboxHealthIndicator），
+      # 因此这里直接复用通用 ServiceNotReady 规则，不再单独定义一个不存在的指标。
+      - alert: JudgeSandboxUnavailable
+        expr: health{job="nemo-oj",instance=~"judge.*",status="readiness"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "判题服务未就绪（通常是沙箱不可达）"
+          description: "判题服务的就绪判定包含沙箱 TCP 连通性，未就绪说明沙箱不可达或 MQ 不可用。"
+
+      - alert: JudgeLeaseReclaimed
+        expr: increase(nemo_judge_lease_reclaimed_total[10m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "近 10 分钟内有任务因租约过期被回收"
+          description: "说明存在判题进程失联或任务超时。偶发属正常；持续发生需要检查判题服务是否频繁重启或任务预算过小。"
+
+      - alert: JudgeQueueBacklog
+        expr: max(nemo_judge_queue_ready) > 20
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "判题队列持续积压 {{ $value }} 条"
+          description: "ready 消息连续 2 分钟超过 20。先检查沙箱槽位、消费者数量与单次执行耗时；恢复条件为降至 20 以下。"
+
+      - alert: JudgeP95TooSlow
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(nemo_judge_end_to_end_seconds_bucket[10m]))) > 30
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "判题端到端 P95 超过 30 秒"
+          description: "结合 queue_wait、broker_queue_wait 和 stage_duration 判断瓶颈位于排队、编译、执行还是落库。"
+
+      - alert: JudgeSystemErrorDetected
+        expr: increase(nemo_judge_result_total{result="SE"}[10m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "近 10 分钟出现判题系统错误"
+          description: "SE 不属于用户代码错误。检查 judge、sandbox 与 Docker daemon 日志；恢复条件为后续 10 分钟不再出现。"
+
+  - name: nemo-oj-host
+    rules:
+      # ---- 主机资源（沙箱在宿主机上创建容器，磁盘与容器残留需要盯） ----
+      - alert: HostDiskSpaceLow
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "根分区可用空间低于 15%"
+          description: "沙箱工作目录与 Docker 镜像都会占用磁盘。恢复条件：清理残留或扩容后回到 15% 以上。"
+
+      # 说明：残留容器数需要访问 Docker daemon 才能统计，本机无 Docker 未实现该指标，
+      # 因此这里不写对应的告警规则——不写比写一条永远不会触发的规则更诚实。
+      # 当前可用的是槽位指标：打满说明容量不足或任务未释放。
+      - alert: SandboxSaturated
+        expr: nemo_sandbox_slots_available == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "沙箱槽位已全部占用"
+          description: "持续 5 分钟无可用槽位，新提交会收到 503。检查是否有任务长时间未释放，或需要提高槽位上限。"
+
+      - alert: SandboxContainerCleanupFailed
+        expr: increase(nemo_sandbox_container_cleanup_failures_total[10m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "沙箱容器清理失败"
+          description: "检查 Docker daemon 与失败日志中的 containerId。残留回收器会补偿，但持续失败可能耗尽宿主机资源。"
+
+  - name: nemo-oj-errors
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_server_requests_seconds_count{job="nemo-oj",status=~"5.."}[5m]))
+          / sum(rate(http_server_requests_seconds_count{job="nemo-oj"}[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "5xx 比例超过 5%"
+          description: "恢复条件：降到 5% 以下并保持 5 分钟。"

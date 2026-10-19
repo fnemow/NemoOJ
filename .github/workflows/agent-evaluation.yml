@@ -1,0 +1,38 @@
+name: Agent evaluation regression
+on:
+  pull_request:
+    paths: ['nemo-agent/**', '.github/workflows/agent-evaluation.yml']
+  push:
+    branches: [main]
+    paths: ['nemo-agent/**', '.github/workflows/agent-evaluation.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  offline-evaluation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: nemo-agent
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: nemo-agent/pyproject.toml
+      - run: python -m pip install -e './nemo-agent[test]'
+      - run: python -m pytest nemo-agent/tests/test_evaluation.py -q
+      - run: python -m nemo_agent.evaluation check --split all
+      - run: python -m nemo_agent.evaluation run --mode mock --split all --out build/agent-evaluation-ci
+      - name: Verify operational coverage (not model quality)
+        run: >-
+          python -c "import json; r=json.load(open('build/agent-evaluation-ci/report.json')); assert r['qualityStatus']=='NOT_MEASURED'; assert r['summary']['completedRuns']==r['summary']['expectedRuns']==60; assert r['summary']['hardFailures']==0"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: agent-offline-evaluation
+          path: |
+            build/agent-evaluation-ci/report.*
+            build/agent-evaluation-ci/manifest.json

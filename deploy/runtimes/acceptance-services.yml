@@ -1,0 +1,68 @@
+# Isolated integration fixture. Generate acceptance.env outside version control.
+name: nemooj-acceptance
+x-service: &service
+  image: eclipse-temurin:17-jre-jammy
+  env_file: ./acceptance.env
+  mem_limit: 640m
+  working_dir: /app
+  command: ["java", "-Xmx384m", "-jar", "/app/service.jar", "--spring.config.additional-location=file:/app/acceptance.yml"]
+services:
+  mysql:
+    image: mysql:8.0
+    env_file: ./acceptance.env
+    mem_limit: 768m
+    volumes: ["mysql-data:/var/lib/mysql"]
+  redis:
+    image: redis:7-alpine
+    mem_limit: 128m
+  rabbit:
+    image: rabbitmq:3.13-alpine
+    env_file: ./acceptance.env
+    mem_limit: 384m
+  ai-postgres:
+    image: postgres:16-alpine
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: ${AI_POSTGRES_DB:-langgraph}
+      POSTGRES_USER: ${AI_POSTGRES_USER:-langgraph}
+      POSTGRES_PASSWORD: ${AI_POSTGRES_PASSWORD}
+    volumes: ["ai-postgres-data:/var/lib/postgresql/data"]
+  gateway:
+    <<: *service
+    ports: ["127.0.0.1:18101:8101"]
+    depends_on: [user, question, judge]
+    environment:
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+    volumes: ["./apps/gateway.jar:/app/service.jar:ro", "./acceptance.yml:/app/acceptance.yml:ro"]
+  user:
+    <<: *service
+    ports: ["127.0.0.1:18102:8102"]
+    volumes: ["./apps/user.jar:/app/service.jar:ro", "./acceptance.yml:/app/acceptance.yml:ro"]
+  question:
+    <<: *service
+    # SMTP authorization belongs only to the question service's notification dispatcher.
+    env_file: ["./acceptance.env", "./question-smtp.env"]
+    ports: ["127.0.0.1:18103:8103"]
+    volumes: ["./apps/question.jar:/app/service.jar:ro", "./acceptance.yml:/app/acceptance.yml:ro"]
+  judge:
+    <<: *service
+    volumes: ["./apps/judge.jar:/app/service.jar:ro", "./acceptance.yml:/app/acceptance.yml:ro"]
+  nemo-agent:
+    build:
+      context: ./nemo-agent
+    restart: unless-stopped
+    # The model API key is isolated to the Agent container. Do not reuse the
+    # shared Java-service env file here, otherwise every service receives it.
+    env_file: ./ai-agent.env
+    mem_limit: 768m
+    depends_on: [rabbit, ai-postgres, question]
+    environment:
+      AI_QUESTION_SERVICE_URL: http://question:8103
+      AI_RABBITMQ_HOST: rabbit
+      AI_RABBITMQ_PORT: 5672
+      AI_RABBITMQ_USER: ${RABBITMQ_USERNAME}
+      AI_RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      AI_POSTGRES_URL: postgresql://${AI_POSTGRES_USER:-langgraph}:${AI_POSTGRES_PASSWORD}@ai-postgres:5432/${AI_POSTGRES_DB:-langgraph}
+volumes:
+  mysql-data:
+  ai-postgres-data:

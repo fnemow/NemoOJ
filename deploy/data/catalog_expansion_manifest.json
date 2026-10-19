@@ -1,0 +1,1736 @@
+{
+  "totalProblems": 166,
+  "newProblems": 142,
+  "tagCounts": {
+    "中等": 55,
+    "二分查找": 26,
+    "二叉树": 23,
+    "位运算": 22,
+    "动态规划": 39,
+    "单调栈": 24,
+    "双指针": 48,
+    "哈希表": 34,
+    "回溯": 24,
+    "困难": 54,
+    "字符串": 25,
+    "广度优先搜索": 26,
+    "排序": 27,
+    "数学": 43,
+    "数组": 65,
+    "栈": 31,
+    "深度优先搜索": 45,
+    "滑动窗口": 21,
+    "矩阵": 25,
+    "简单": 57,
+    "递归": 54,
+    "链表": 23
+  },
+  "problems": [
+    {
+      "problemNo": 25,
+      "title": "链表中点的值",
+      "tags": [
+        "简单",
+        "链表",
+        "双指针",
+        "数组"
+      ],
+      "methodName": "middleValue"
+    },
+    {
+      "problemNo": 26,
+      "title": "链表倒数第 K 个节点",
+      "tags": [
+        "中等",
+        "链表",
+        "双指针"
+      ],
+      "methodName": "kthFromEnd"
+    },
+    {
+      "problemNo": 27,
+      "title": "回文链表判定",
+      "tags": [
+        "困难",
+        "链表",
+        "双指针",
+        "栈"
+      ],
+      "methodName": "isPalindromeList"
+    },
+    {
+      "problemNo": 28,
+      "title": "删除链表倒数第 N 个节点",
+      "tags": [
+        "简单",
+        "链表",
+        "双指针"
+      ],
+      "methodName": "removeNthFromEnd"
+    },
+    {
+      "problemNo": 29,
+      "title": "链表向右轮转",
+      "tags": [
+        "中等",
+        "链表",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "rotateRight"
+    },
+    {
+      "problemNo": 30,
+      "title": "两两交换链表节点",
+      "tags": [
+        "困难",
+        "链表",
+        "递归",
+        "双指针"
+      ],
+      "methodName": "swapPairs"
+    },
+    {
+      "problemNo": 31,
+      "title": "奇偶位置链表重排",
+      "tags": [
+        "简单",
+        "链表",
+        "双指针"
+      ],
+      "methodName": "oddEvenList"
+    },
+    {
+      "problemNo": 32,
+      "title": "按阈值分隔链表",
+      "tags": [
+        "中等",
+        "链表",
+        "双指针",
+        "排序"
+      ],
+      "methodName": "partitionList"
+    },
+    {
+      "problemNo": 33,
+      "title": "删除有序链表重复值",
+      "tags": [
+        "困难",
+        "链表",
+        "哈希表",
+        "排序"
+      ],
+      "methodName": "deleteDuplicates"
+    },
+    {
+      "problemNo": 34,
+      "title": "移除链表指定值",
+      "tags": [
+        "简单",
+        "链表",
+        "递归"
+      ],
+      "methodName": "removeElements"
+    },
+    {
+      "problemNo": 35,
+      "title": "反转链表指定区间",
+      "tags": [
+        "中等",
+        "链表",
+        "递归",
+        "双指针"
+      ],
+      "methodName": "reverseBetween"
+    },
+    {
+      "problemNo": 36,
+      "title": "首尾交替重排链表",
+      "tags": [
+        "困难",
+        "链表",
+        "双指针",
+        "栈"
+      ],
+      "methodName": "reorderList"
+    },
+    {
+      "problemNo": 37,
+      "title": "链表归并排序",
+      "tags": [
+        "简单",
+        "链表",
+        "排序",
+        "递归",
+        "双指针"
+      ],
+      "methodName": "sortLinkedList"
+    },
+    {
+      "problemNo": 38,
+      "title": "链表表示的两数相加",
+      "tags": [
+        "中等",
+        "链表",
+        "数学",
+        "递归"
+      ],
+      "methodName": "addTwoNumbers"
+    },
+    {
+      "problemNo": 39,
+      "title": "合并多条有序链表",
+      "tags": [
+        "困难",
+        "链表",
+        "排序",
+        "二分查找"
+      ],
+      "methodName": "mergeKLists"
+    },
+    {
+      "problemNo": 40,
+      "title": "链表最大孪生和",
+      "tags": [
+        "简单",
+        "链表",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "pairSum"
+    },
+    {
+      "problemNo": 41,
+      "title": "链表选定节点连通分量",
+      "tags": [
+        "中等",
+        "链表",
+        "哈希表",
+        "数组"
+      ],
+      "methodName": "numComponents"
+    },
+    {
+      "problemNo": 42,
+      "title": "链表中的下一个更大节点",
+      "tags": [
+        "困难",
+        "链表",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextLargerNodes"
+    },
+    {
+      "problemNo": 43,
+      "title": "按偶数长度分组反转链表",
+      "tags": [
+        "简单",
+        "链表",
+        "递归",
+        "数学"
+      ],
+      "methodName": "reverseEvenLengthGroups"
+    },
+    {
+      "problemNo": 44,
+      "title": "链表数字翻倍",
+      "tags": [
+        "中等",
+        "链表",
+        "数学",
+        "栈"
+      ],
+      "methodName": "doubleLinkedNumber"
+    },
+    {
+      "problemNo": 45,
+      "title": "二叉搜索树查找节点",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "searchBST"
+    },
+    {
+      "problemNo": 46,
+      "title": "二叉搜索树插入节点",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "insertIntoBST"
+    },
+    {
+      "problemNo": 47,
+      "title": "二叉搜索树删除节点",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "deleteNode"
+    },
+    {
+      "problemNo": 48,
+      "title": "二叉搜索树第 K 小元素",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "栈"
+      ],
+      "methodName": "kthSmallestBST"
+    },
+    {
+      "problemNo": 49,
+      "title": "二叉搜索树第 K 大元素",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "栈"
+      ],
+      "methodName": "kthLargestBST"
+    },
+    {
+      "problemNo": 50,
+      "title": "二叉搜索树区间和",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "数学"
+      ],
+      "methodName": "rangeSumBST"
+    },
+    {
+      "problemNo": 51,
+      "title": "二叉搜索树最小差值",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "minDiffInBST"
+    },
+    {
+      "problemNo": 52,
+      "title": "二叉搜索树向下取整",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "floorInBST"
+    },
+    {
+      "problemNo": 53,
+      "title": "二叉搜索树向上取整",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "ceilInBST"
+    },
+    {
+      "problemNo": 54,
+      "title": "二叉搜索树最近公共祖先",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "lowestCommonAncestorBST"
+    },
+    {
+      "problemNo": 55,
+      "title": "验证二叉搜索树边界",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "validateBST"
+    },
+    {
+      "problemNo": 56,
+      "title": "有序数组构造平衡搜索树",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "数组"
+      ],
+      "methodName": "sortedArrayToBST"
+    },
+    {
+      "problemNo": 57,
+      "title": "统计搜索树节点数量",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "数学"
+      ],
+      "methodName": "countBSTNodes"
+    },
+    {
+      "problemNo": 58,
+      "title": "搜索树所有节点之和",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "数学"
+      ],
+      "methodName": "sumBSTNodes"
+    },
+    {
+      "problemNo": 59,
+      "title": "搜索树高度",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "heightOfBST"
+    },
+    {
+      "problemNo": 60,
+      "title": "搜索树叶子数量",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "countBSTLeaves"
+    },
+    {
+      "problemNo": 61,
+      "title": "搜索树先序遍历",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "栈"
+      ],
+      "methodName": "preorderBST"
+    },
+    {
+      "problemNo": 62,
+      "title": "搜索树后序遍历",
+      "tags": [
+        "中等",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "栈"
+      ],
+      "methodName": "postorderBST"
+    },
+    {
+      "problemNo": 63,
+      "title": "搜索树右侧视图",
+      "tags": [
+        "困难",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归",
+        "栈"
+      ],
+      "methodName": "rightSideViewBST"
+    },
+    {
+      "problemNo": 64,
+      "title": "搜索树层序展开",
+      "tags": [
+        "简单",
+        "二叉树",
+        "二分查找",
+        "深度优先搜索",
+        "广度优先搜索",
+        "递归"
+      ],
+      "methodName": "levelOrderBST"
+    },
+    {
+      "problemNo": 65,
+      "title": "矩阵单词搜索",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "字符串"
+      ],
+      "methodName": "existWord"
+    },
+    {
+      "problemNo": 66,
+      "title": "矩阵单词路径数量",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "字符串"
+      ],
+      "methodName": "countWordPaths"
+    },
+    {
+      "problemNo": 67,
+      "title": "障碍网格单调路径",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "uniquePathsWithObstacles"
+    },
+    {
+      "problemNo": 68,
+      "title": "网格简单路径计数",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "countSimpleGridPaths"
+    },
+    {
+      "problemNo": 69,
+      "title": "矩阵最长递增路径",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "longestIncreasingPath"
+    },
+    {
+      "problemNo": 70,
+      "title": "二进制矩阵岛屿数量",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "广度优先搜索"
+      ],
+      "methodName": "countMatrixIslands"
+    },
+    {
+      "problemNo": 71,
+      "title": "矩阵最大岛屿面积",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "广度优先搜索"
+      ],
+      "methodName": "maxIslandArea"
+    },
+    {
+      "problemNo": 72,
+      "title": "封闭岛屿数量",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "closedIslandCount"
+    },
+    {
+      "problemNo": 73,
+      "title": "岛屿海岸线长度",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "数学"
+      ],
+      "methodName": "islandPerimeter"
+    },
+    {
+      "problemNo": 74,
+      "title": "飞地陆地格数量",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "广度优先搜索"
+      ],
+      "methodName": "numEnclaves"
+    },
+    {
+      "problemNo": 75,
+      "title": "二进制网格最短路径",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "广度优先搜索"
+      ],
+      "methodName": "shortestBinaryPath"
+    },
+    {
+      "problemNo": 76,
+      "title": "限定步数的网格路径",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "countExactStepPaths"
+    },
+    {
+      "problemNo": 77,
+      "title": "网格采集最大黄金",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "getMaximumGold"
+    },
+    {
+      "problemNo": 78,
+      "title": "矩形网格单调路径公式",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "数学"
+      ],
+      "methodName": "countMonotonePaths"
+    },
+    {
+      "problemNo": 79,
+      "title": "全一最大正方形面积",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "单调栈"
+      ],
+      "methodName": "maximalSquareArea"
+    },
+    {
+      "problemNo": 80,
+      "title": "矩阵最小代价路径",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "minimumPathCost"
+    },
+    {
+      "problemNo": 81,
+      "title": "目标和单调路径数量",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "数学"
+      ],
+      "methodName": "countTargetSumPaths"
+    },
+    {
+      "problemNo": 82,
+      "title": "棋盘 N 皇后方案数",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "位运算"
+      ],
+      "methodName": "countNQueensBoards"
+    },
+    {
+      "problemNo": 83,
+      "title": "障碍棋盘车的放置",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "countRookPlacements"
+    },
+    {
+      "problemNo": 84,
+      "title": "相邻异色网格涂色",
+      "tags": [
+        "困难",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "数学"
+      ],
+      "methodName": "countGridColorings"
+    },
+    {
+      "problemNo": 85,
+      "title": "覆盖全部可通行格的路径",
+      "tags": [
+        "简单",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "countHamiltonianGridPaths"
+    },
+    {
+      "problemNo": 86,
+      "title": "矩阵可找到的词语数量",
+      "tags": [
+        "中等",
+        "矩阵",
+        "回溯",
+        "深度优先搜索",
+        "递归",
+        "动态规划",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "countExistingWords"
+    },
+    {
+      "problemNo": 87,
+      "title": "整数二进制一的数量",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "hammingWeight"
+    },
+    {
+      "problemNo": 88,
+      "title": "整数奇偶校验位",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "bitParity"
+    },
+    {
+      "problemNo": 89,
+      "title": "判断二的整数次幂",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "isPowerOfTwo"
+    },
+    {
+      "problemNo": 90,
+      "title": "不超过目标的最大二次幂",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "highestPowerOfTwo"
+    },
+    {
+      "problemNo": 91,
+      "title": "数组中的唯一元素",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "singleNumberXor"
+    },
+    {
+      "problemNo": 92,
+      "title": "零到 N 中缺失的数字",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "missingNumberXor"
+    },
+    {
+      "problemNo": 93,
+      "title": "找出新增字符",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "findExtraCharacter"
+    },
+    {
+      "problemNo": 94,
+      "title": "整数区间异或值",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "xorRange"
+    },
+    {
+      "problemNo": 95,
+      "title": "反转三十二位二进制",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "reverseBits32"
+    },
+    {
+      "problemNo": 96,
+      "title": "交换奇偶二进制位",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "swapOddEvenBits"
+    },
+    {
+      "problemNo": 97,
+      "title": "清除最低有效一位",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "clearLowestSetBit"
+    },
+    {
+      "problemNo": 98,
+      "title": "两个整数的位差",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "hammingDistance"
+    },
+    {
+      "problemNo": 99,
+      "title": "所有子集异或和",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学",
+        "数组",
+        "回溯",
+        "动态规划"
+      ],
+      "methodName": "subsetXorSum"
+    },
+    {
+      "problemNo": 100,
+      "title": "二进制子掩码数量",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学",
+        "动态规划"
+      ],
+      "methodName": "countSubmasks"
+    },
+    {
+      "problemNo": 101,
+      "title": "数组最大异或对",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学",
+        "数组",
+        "哈希表"
+      ],
+      "methodName": "maximumXorPair"
+    },
+    {
+      "problemNo": 102,
+      "title": "数组总汉明距离",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学",
+        "数组"
+      ],
+      "methodName": "totalHammingDistance"
+    },
+    {
+      "problemNo": 103,
+      "title": "不用加号计算非负整数和",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学"
+      ],
+      "methodName": "addWithoutPlus"
+    },
+    {
+      "problemNo": 104,
+      "title": "整数区间按位与",
+      "tags": [
+        "中等",
+        "位运算",
+        "数学",
+        "二分查找"
+      ],
+      "methodName": "rangeBitwiseAnd"
+    },
+    {
+      "problemNo": 105,
+      "title": "零到 N 的位计数",
+      "tags": [
+        "困难",
+        "位运算",
+        "数学",
+        "动态规划",
+        "数组"
+      ],
+      "methodName": "countBits"
+    },
+    {
+      "problemNo": 106,
+      "title": "生成格雷码序列",
+      "tags": [
+        "简单",
+        "位运算",
+        "数学",
+        "数组",
+        "递归"
+      ],
+      "methodName": "grayCode"
+    },
+    {
+      "problemNo": 107,
+      "title": "右侧第一个更大值",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextGreaterRight"
+    },
+    {
+      "problemNo": 108,
+      "title": "左侧第一个更大值",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextGreaterLeft"
+    },
+    {
+      "problemNo": 109,
+      "title": "右侧第一个更小值",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextSmallerRight"
+    },
+    {
+      "problemNo": 110,
+      "title": "左侧第一个更小值",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextSmallerLeft"
+    },
+    {
+      "problemNo": 111,
+      "title": "到右侧更大元素的距离",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "distanceToNextGreater"
+    },
+    {
+      "problemNo": 112,
+      "title": "到左侧更大元素的距离",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "distanceToPreviousGreater"
+    },
+    {
+      "problemNo": 113,
+      "title": "等待更高温度的天数",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "dailyTemperaturesPlus"
+    },
+    {
+      "problemNo": 114,
+      "title": "股票价格跨度",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "stockSpan"
+    },
+    {
+      "problemNo": 115,
+      "title": "右侧可见人数",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "canSeePersonsCount"
+    },
+    {
+      "problemNo": 116,
+      "title": "直方图最大矩形扩展",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "largestHistogramRectangle"
+    },
+    {
+      "problemNo": 117,
+      "title": "二进制矩阵最大矩形",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组",
+        "矩阵",
+        "动态规划"
+      ],
+      "methodName": "maximalRectangleArea"
+    },
+    {
+      "problemNo": 118,
+      "title": "柱形地面蓄水量",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组",
+        "双指针"
+      ],
+      "methodName": "trappedWater"
+    },
+    {
+      "problemNo": 119,
+      "title": "所有子数组最小值之和",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组",
+        "动态规划"
+      ],
+      "methodName": "sumSubarrayMinimums"
+    },
+    {
+      "problemNo": 120,
+      "title": "所有子数组最大值之和",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组",
+        "动态规划"
+      ],
+      "methodName": "sumSubarrayMaximums"
+    },
+    {
+      "problemNo": 121,
+      "title": "数组最大宽度坡",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "maxWidthRamp"
+    },
+    {
+      "problemNo": 122,
+      "title": "最短无序连续子数组",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "findUnsortedSubarray"
+    },
+    {
+      "problemNo": 123,
+      "title": "删除 K 位得到最小数",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组",
+        "字符串"
+      ],
+      "methodName": "removeKDigits"
+    },
+    {
+      "problemNo": 124,
+      "title": "一三二模式检测",
+      "tags": [
+        "简单",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "find132Pattern"
+    },
+    {
+      "problemNo": 125,
+      "title": "小行星碰撞模拟",
+      "tags": [
+        "中等",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "asteroidCollision"
+    },
+    {
+      "problemNo": 126,
+      "title": "循环数组下一个更大值",
+      "tags": [
+        "困难",
+        "单调栈",
+        "栈",
+        "数组"
+      ],
+      "methodName": "nextGreaterCircular"
+    },
+    {
+      "problemNo": 127,
+      "title": "无重复字符最长子串",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "longestUniqueSubstring"
+    },
+    {
+      "problemNo": 128,
+      "title": "固定窗口最多元音",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "maxVowelsInWindow"
+    },
+    {
+      "problemNo": 129,
+      "title": "字符串异位词窗口数量",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "countAnagramWindows"
+    },
+    {
+      "problemNo": 130,
+      "title": "字符串排列包含判断",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "containsPermutation"
+    },
+    {
+      "problemNo": 131,
+      "title": "最短覆盖子串长度",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "minimumCoverLength"
+    },
+    {
+      "problemNo": 132,
+      "title": "替换字符后的最长重复子串",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "characterReplacement"
+    },
+    {
+      "problemNo": 133,
+      "title": "至多 K 种字符的最长子串",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "longestSubstringKDistinct"
+    },
+    {
+      "problemNo": 134,
+      "title": "覆盖全部不同字符的最短长度",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "smallestDistinctCover"
+    },
+    {
+      "problemNo": 135,
+      "title": "含 ABC 的子串数量",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "数学"
+      ],
+      "methodName": "countABCSubstrings"
+    },
+    {
+      "problemNo": 136,
+      "title": "两个不同字符的最长子串",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "longestTwoDistinct"
+    },
+    {
+      "problemNo": 137,
+      "title": "零一字符最长平衡区间",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "数学"
+      ],
+      "methodName": "longestBalancedBinaryString"
+    },
+    {
+      "problemNo": 138,
+      "title": "固定长度全异字符窗口",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "countDistinctCharacterWindows"
+    },
+    {
+      "problemNo": 139,
+      "title": "最短覆盖子串内容",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "minimumCoverSubstring"
+    },
+    {
+      "problemNo": 140,
+      "title": "重复 DNA 片段种数",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "字符串"
+      ],
+      "methodName": "countRepeatedDNA"
+    },
+    {
+      "problemNo": 141,
+      "title": "翻转后的最长连续一",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "longestOnesAfterFlips"
+    },
+    {
+      "problemNo": 142,
+      "title": "正数数组最短达标区间",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "数组",
+        "双指针"
+      ],
+      "methodName": "minimumSubarrayLength"
+    },
+    {
+      "problemNo": 143,
+      "title": "固定长度最大区间和",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "数组",
+        "数学"
+      ],
+      "methodName": "maximumFixedWindowSum"
+    },
+    {
+      "problemNo": 144,
+      "title": "乘积小于 K 的子数组",
+      "tags": [
+        "困难",
+        "滑动窗口",
+        "哈希表",
+        "数组",
+        "双指针"
+      ],
+      "methodName": "countProductLessThanK"
+    },
+    {
+      "problemNo": 145,
+      "title": "恰含 K 个奇数的子数组",
+      "tags": [
+        "简单",
+        "滑动窗口",
+        "哈希表",
+        "数组",
+        "数学"
+      ],
+      "methodName": "countNiceSubarrays"
+    },
+    {
+      "problemNo": 146,
+      "title": "连续子数组目标和计数",
+      "tags": [
+        "中等",
+        "滑动窗口",
+        "哈希表",
+        "数组",
+        "动态规划"
+      ],
+      "methodName": "countSubarraySum"
+    },
+    {
+      "problemNo": 147,
+      "title": "数组目标二元组存在性",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针",
+        "哈希表"
+      ],
+      "methodName": "hasPairWithSum"
+    },
+    {
+      "problemNo": 148,
+      "title": "目标和下标对数量",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针",
+        "哈希表",
+        "数学"
+      ],
+      "methodName": "countPairsWithSum"
+    },
+    {
+      "problemNo": 149,
+      "title": "最接近目标的二元和差",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "closestPairDifference"
+    },
+    {
+      "problemNo": 150,
+      "title": "小于上限的最大二元和",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "maximumPairBelow"
+    },
+    {
+      "problemNo": 151,
+      "title": "数组目标三元组存在性",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "hasTripletWithSum"
+    },
+    {
+      "problemNo": 152,
+      "title": "不同目标三元组数量",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针",
+        "哈希表"
+      ],
+      "methodName": "countDistinctTriplets"
+    },
+    {
+      "problemNo": 153,
+      "title": "盛水容器最大容量",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "maxContainerArea"
+    },
+    {
+      "problemNo": 154,
+      "title": "有序数组平方排序",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "sortedSquares"
+    },
+    {
+      "problemNo": 155,
+      "title": "稳定移动所有零",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "moveZeroesStable"
+    },
+    {
+      "problemNo": 156,
+      "title": "有序数组去重长度",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "deduplicatedLength"
+    },
+    {
+      "problemNo": 157,
+      "title": "合并两组有序数据",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "mergeTwoSortedArrays"
+    },
+    {
+      "problemNo": 158,
+      "title": "两个数组的唯一交集",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针",
+        "哈希表"
+      ],
+      "methodName": "uniqueIntersection"
+    },
+    {
+      "problemNo": 159,
+      "title": "两有序数组中位数的两倍",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针",
+        "二分查找",
+        "数学"
+      ],
+      "methodName": "twiceMedian"
+    },
+    {
+      "problemNo": 160,
+      "title": "两有序数组第 K 小元素",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针",
+        "二分查找"
+      ],
+      "methodName": "kthInSortedArrays"
+    },
+    {
+      "problemNo": 161,
+      "title": "最多不重叠区间数量",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "maximumNonOverlappingIntervals"
+    },
+    {
+      "problemNo": 162,
+      "title": "区间并集总长度",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针",
+        "数学"
+      ],
+      "methodName": "intervalUnionLength"
+    },
+    {
+      "problemNo": 163,
+      "title": "刺破所有区间的最少点数",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "minimumIntervalArrows"
+    },
+    {
+      "problemNo": 164,
+      "title": "数组逆序对数量",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "双指针",
+        "递归",
+        "动态规划"
+      ],
+      "methodName": "countInversions"
+    },
+    {
+      "problemNo": 165,
+      "title": "三色数组原地排序结果",
+      "tags": [
+        "困难",
+        "数组",
+        "排序",
+        "双指针"
+      ],
+      "methodName": "sortThreeColors"
+    },
+    {
+      "problemNo": 166,
+      "title": "不同元素数组排序最少交换",
+      "tags": [
+        "简单",
+        "数组",
+        "排序",
+        "双指针",
+        "哈希表"
+      ],
+      "methodName": "minimumSwapsToSort"
+    }
+  ]
+}

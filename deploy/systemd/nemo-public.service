@@ -1,0 +1,17 @@
+[Unit]
+Description=NemoOJ public HTTPS entry
+Requires=docker.service nemo-core.service
+PartOf=nemo-core.service
+After=docker.service nemo-core.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/nemo-oj
+ExecStart=/usr/bin/docker compose --env-file deploy/.env -f deploy/docker-compose.yml -f deploy/compose.core-cloud.yml -f deploy/compose.core-4g-preview.yml -f deploy/compose.core-public.yml --profile public up -d --no-build --no-deps proxy
+ExecStop=/usr/bin/docker compose --env-file deploy/.env -f deploy/docker-compose.yml -f deploy/compose.core-cloud.yml -f deploy/compose.core-4g-preview.yml -f deploy/compose.core-public.yml --profile public stop proxy
+TimeoutStartSec=120
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

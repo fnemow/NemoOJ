@@ -1,0 +1,20 @@
+# 生产环境
+#
+# 网关不带凭据，但必须显式提供 Nacos 地址与允许的前端来源。
+# 这两项不设默认值，缺失时启动失败，避免带着本机地址或开发来源上线。
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR}
+
+cors:
+  # 形如 https://oj.example.com，多个用逗号分隔；不接受通配符
+  allowed-origins: ${CORS_ALLOWED_ORIGINS}
+
+server:
+  port: ${SERVER_PORT:8101}
+
+# 生产关闭网关聚合文档
+knife4j:
+  gateway:
+    enabled: false

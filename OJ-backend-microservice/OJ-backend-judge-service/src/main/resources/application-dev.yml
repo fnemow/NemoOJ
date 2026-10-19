@@ -1,0 +1,46 @@
+# 开发环境
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+  data:
+    redis:
+      database: ${REDIS_DATABASE:5}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    listener:
+      simple:
+        default-requeue-rejected: false
+        prefetch: ${RABBITMQ_PREFETCH:1}
+        concurrency: ${RABBITMQ_CONCURRENCY:2}
+
+server:
+  port: ${SERVER_PORT:8104}
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+knife4j:
+  enable: true
+
+judge:
+  sandbox:
+    base-url: ${SANDBOX_BASE_URL:http://localhost:8090}
+    secret: ${SANDBOX_SECRET:dev-only-change-me}
+    connect-timeout-ms: 2000
+    # 沙箱执行时间 = 编译(~30s) + N 个用例（按题目配置）
+    read-timeout-ms: 600000
+
+# 内部服务调用凭据：网关剥离该头，业务服务校验它。
+# 本地开发用固定值即可；生产必须与所有服务保持一致并通过环境变量注入。
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET:dev-only-internal-token}

@@ -1,0 +1,21 @@
+# 开发环境
+server:
+  port: ${SERVER_PORT:8090}
+
+knife4j:
+  enable: true
+
+sandbox:
+  # 开发用固定值，便于本地联调；生产必须通过 SANDBOX_SECRET 注入，见 application-prod.yml
+  auth:
+    secret: ${SANDBOX_SECRET:dev-only-change-me}
+  type: ${SANDBOX_TYPE:docker}
+  auto-pull: false
+  image-validation:
+    enabled: true
+  # 各语言镜像配置 —— 生产环境建议固定为具体 digest，避免可变标签:
+  #   docker pull openjdk:8-alpine && docker inspect openjdk:8-alpine --format='{{.RepoDigests}}'
+  image:
+    java: ${SANDBOX_JAVA_IMAGE:openjdk:8-alpine}
+  language:
+    enabled: ${JUDGE_ENABLED_LANGUAGES:${SANDBOX_LANGUAGES:java}}

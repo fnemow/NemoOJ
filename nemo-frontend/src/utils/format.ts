@@ -1,0 +1,2 @@
+export function formatShanghai(value?: string|null): string { if(!value)return '—';const d=new Date(value);return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d)+'（Asia/Shanghai）' }
+export function formatMemory(kb?:number|null):string{return kb==null?'—':`${(kb/1024).toFixed(1)} MiB`}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.nemo</groupId>
+        <artifactId>OJ-backend-microservice</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>OJ-backend-common</artifactId>
+
+    <dependencies>
+        <!--
+          Spring Web (提供 @RestControllerAdvice、@ExceptionHandler 等)。
+          标记 optional：本模块同时被 WebFlux 网关依赖，若把 Servlet 栈（spring-webmvc + Tomcat）
+          传递给网关，会与响应式栈冲突。各 Servlet 应用自行声明 spring-boot-starter-web。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Commons Lang3 (StringUtils 等) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!--
+          spring-tx：GlobalExceptionHandler 需要 DuplicateKeyException（org.springframework.dao）。
+          标记 optional——只有使用数据库的服务在运行期需要它，网关等模块不受影响。
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--
+          限流需要共享计数。标记 optional：只有启用限流的服务需要 Redis；
+          未引入时 RateLimitConfig 会自动降级为本地限流（并收紧配额）。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+</project>

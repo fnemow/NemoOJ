@@ -1,0 +1,81 @@
+# ============================================================
+# NemoOJ 微服务仓库
+# 跟踪范围：OJ-backend-microservice/ 与 nemo-sandbox/
+# ============================================================
+
+# ---- 构建产物 ----
+target/
+*.class
+
+# ---- IDE ----
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# ---- 日志与运行时临时文件 ----
+*.log
+logs/
+# 沙箱工作目录（用户代码落盘位置）
+**/tmpCode/
+osv-report.json
+
+# ---- 部署配置与密钥：绝不入库 ----
+deploy/.env
+deploy/.env.agent
+deploy/nginx/certs/
+deploy/nginx/acme/
+deploy/backups/
+deploy/runtimes/acceptance.env
+deploy/runtimes/question-smtp.env
+
+# ---- 本地环境配置：绝不入库，防止凭据泄漏 ----
+# 约定：数据库口令等通过环境变量提供（见 build/README.md）
+.env
+.env.local
+*.local.yml
+*.local.yaml
+application-local.yml
+application-local.yaml
+
+# ---- 不在上线范围内的历史实现 ----
+# 计划规定 backend 为历史单体实现与现有 SQL 来源，不纳入微服务仓库
+/backend/
+
+# ---- 个人文档与草稿：不属于微服务代码，避免误发布 ----
+/analysis.md
+/answer.md
+/improve.md
+record/interview.md
+record/resume-highlights-source.md
+
+# ---- 工具目录 ----
+/build/login-restore-private/
+/.claude/
+build/submission-calendar-20261012/*-private.json
+
+# Generated evaluation outputs and human annotations are local artifacts.
+/nemo-agent/evaluation/runs/
+
+# Public source repository: keep local artifacts and secrets out.
+/build/*
+!/build/README.md
+!/build/maven-settings.xml
+!/build/osv-scan.py
+!/build/stop-local-services.ps1
+/output/
+/.playwright-cli/
+/record/log/
+/record/performance/
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+.env.*
+!.env.example
+!.env.agent.example
+*.pem
+*.key
+*.p12
+*.pfx

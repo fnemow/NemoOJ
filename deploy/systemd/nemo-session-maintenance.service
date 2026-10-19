@@ -1,0 +1,11 @@
+[Unit]
+Description=NemoOJ bounded cleanup of stale anonymous sessions
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/nemo-ops/redis_session_ops.py clean 2000
+UMask=0077
+TimeoutStartSec=30
+Nice=10
+

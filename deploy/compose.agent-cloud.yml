@@ -1,0 +1,61 @@
+# 阿里云 AI 主机独立编排。镜像需提前构建并传送/推送到该主机。
+# 不发布任何容器端口；出站经过宿主机 WireGuard 路由访问腾讯云。
+name: nemo-ai
+
+services:
+  ai-postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: ${AI_POSTGRES_DB:-langgraph}
+      POSTGRES_USER: ${AI_POSTGRES_USER:-langgraph}
+      POSTGRES_PASSWORD: ${AI_POSTGRES_PASSWORD:?请设置 AI_POSTGRES_PASSWORD}
+    volumes:
+      - ai-postgres-data:/var/lib/postgresql/data
+    networks: [ai-private]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  nemo-agent:
+    image: ${NEMO_AGENT_IMAGE:?请设置已构建的 Agent 镜像}
+    restart: unless-stopped
+    mem_limit: 512m
+    depends_on:
+      ai-postgres: { condition: service_healthy }
+    environment:
+      AI_ENVIRONMENT: production
+      AI_PROVIDER: ${AI_MODEL_PROVIDER:?请设置模型提供方}
+      AI_MODEL_ID: ${AI_MODEL_ID:?请设置模型 ID}
+      AI_API_KEY: ${AI_MODEL_API_KEY:?请设置模型 API Key}
+      AI_BASE_URL: ${AI_MODEL_BASE_URL:-}
+      AI_INTERNAL_SECRET: ${AI_INTERNAL_SECRET:?请设置与 OJ 一致的签名密钥}
+      AI_QUESTION_SERVICE_URL: http://${AI_TUNNEL_PEER_IP:?请设置腾讯云 WireGuard 地址}:8103
+      AI_RABBITMQ_HOST: ${AI_TUNNEL_PEER_IP}
+      AI_RABBITMQ_PORT: 5672
+      AI_RABBITMQ_USER: ${AI_RABBITMQ_USERNAME:?请设置 RabbitMQ 账号}
+      AI_RABBITMQ_PASSWORD: ${AI_RABBITMQ_PASSWORD:?请设置 RabbitMQ 密码}
+      AI_POSTGRES_URL: postgresql://${AI_POSTGRES_USER:-langgraph}:${AI_POSTGRES_PASSWORD}@ai-postgres:5432/${AI_POSTGRES_DB:-langgraph}
+      AI_MOCK_ENABLED: "false"
+      AI_MODEL_TIMEOUT_SECONDS: ${AI_MODEL_TIMEOUT_SECONDS:-45}
+      AI_MODEL_CONCURRENCY: ${AI_MODEL_CONCURRENCY:-2}
+      AI_AUTO_REPAIR_ENABLED: ${AI_AUTO_REPAIR_ENABLED:-true}
+      AI_CANONICAL_GENERATION_ENABLED: ${AI_CANONICAL_GENERATION_ENABLED:-true}
+      AI_TRUSTED_TEMPLATES_ENABLED: ${AI_TRUSTED_TEMPLATES_ENABLED:-true}
+      AI_STAGED_GENERATION_ENABLED: ${AI_STAGED_GENERATION_ENABLED:-true}
+      AI_INPUT_USD_PER_MILLION_TOKENS: ${AI_INPUT_USD_PER_MILLION_TOKENS:-0}
+      AI_OUTPUT_USD_PER_MILLION_TOKENS: ${AI_OUTPUT_USD_PER_MILLION_TOKENS:-0}
+    networks: [ai-private, ai-egress]
+
+networks:
+  ai-private:
+    driver: bridge
+    internal: true
+  ai-egress:
+    driver: bridge
+
+volumes:
+  ai-postgres-data:

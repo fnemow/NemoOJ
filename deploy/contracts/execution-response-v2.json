@@ -1,0 +1,1 @@
+{"cases":[{"caseIndex":0,"status":0,"stdout":"{\"status\":\"OK\",\"actual\":9223372036854775807,\"timeMs\":1}","exitCode":0,"time":1500,"memory":10000}],"overallStatus":0,"effectiveLimits":{"timeLimitMs":3000,"memoryLimitKB":262144,"outputLimitBytes":1048576},"policyVersion":"multilanguage-1:10:268435456:3.0:64:1048576"}

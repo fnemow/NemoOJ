@@ -1,0 +1,55 @@
+# 应用服务 WEB 访问端口
+spring:
+  application:
+    name: OJ-backend-gateway
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  main:
+    # 网关基于 WebFlux；显式声明可避免引入 Servlet 依赖时被误判为 Servlet 应用
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: OJ-backend-user-service
+          uri: lb://OJ-backend-user-service  # 动态路由规则
+          predicates:
+            - Path=/api/user/**
+        - id: OJ-backend-judge-service
+          uri: lb://OJ-backend-judge-service
+          predicates:
+            - Path=/api/judge/**
+        - id: OJ-backend-question-service
+          uri: lb://OJ-backend-question-service
+          predicates:
+            - Path=/api/question/**
+        - id: OJ-backend-ai-user-api
+          uri: lb://OJ-backend-question-service
+          predicates:
+            - Path=/api/ai/**
+          filters:
+            - RewritePath=/api/ai/(?<segment>.*), /api/question/ai/${segment}
+        - id: OJ-backend-ai-admin-api
+          uri: lb://OJ-backend-question-service
+          predicates:
+            - Path=/api/admin/ai/**
+          filters:
+            - RewritePath=/api/admin/ai/(?<segment>.*), /api/question/admin/ai/${segment}
+
+server:
+  port: ${SERVER_PORT:8101}
+
+# 跨域白名单：只允许配置中列出的前端来源（逗号分隔），不使用通配符
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}
+
+knife4j:
+  gateway:
+    # ① 第一个配置，开启gateway聚合组件
+    enabled: true
+    # ② 第二行配置，设置聚合模式采用discover服务发现的模式
+    strategy: discover
+    discover:
+      # ③ 第三行配置，开启discover模式
+      enabled: true
+      # ④ 第四行配置，聚合子服务全部为Swagger2规范的文档
+      version: swagger2

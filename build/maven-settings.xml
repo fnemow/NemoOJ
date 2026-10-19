@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  项目本地 Maven 设置模板，用于可复现构建。
+
+  背景：本机全局 settings.xml（Maven conf 目录）配置了 alimaven 镜像，
+  其地址 http://maven.aliyun.com/nexus/content/groups/public/ 为旧版 HTTP 端点，
+  在部分网络下会 443 超时，导致插件依赖解析失败、构建中断。
+
+  用法：
+    mvn -s build/maven-settings.xml -B clean package
+
+  说明：
+  - 本文件不包含任何凭据，可提交到版本库。
+  - 如内网有自有私服，替换 <url> 即可。
+  - 若希望长期生效，可将 <mirror> 段合并到 ~/.m2/settings.xml（由运维自行决定）。
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <mirrors>
+        <!--
+          阿里云公共仓库（HTTPS）。相比直连 repo1.maven.org 在国内网络下更稳定、更快，
+          且它是 Central 的完整代理，缺失制品会回源到 Central。
+          若构建环境无法访问阿里云，把 <url> 换成 https://repo1.maven.org/maven2/ 即可。
+        -->
+        <mirror>
+            <id>aliyun-public</id>
+            <name>Aliyun Public (HTTPS)</name>
+            <url>https://maven.aliyun.com/repository/public/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <!-- 网络抖动时的重试，避免镜像偶发超时直接中断构建 -->
+    <profiles>
+        <profile>
+            <id>reliable-download</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
+                <maven.wagon.httpconnectionManager.ttlSeconds>60</maven.wagon.httpconnectionManager.ttlSeconds>
+                <maven.wagon.rto>60000</maven.wagon.rto>
+            </properties>
+        </profile>
+    </profiles>
+
+</settings>

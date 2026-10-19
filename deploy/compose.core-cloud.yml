@@ -1,0 +1,33 @@
+# 腾讯云 OJ 主机叠加层。始终与 docker-compose.yml 一起使用。
+# 先启动 wg0，再启动 Compose；只绑定 wg0 地址，绝不绑定 0.0.0.0。
+services:
+  ai-postgres:
+    profiles: [local-ai]
+
+  nemo-agent:
+    profiles: [local-ai]
+
+  ai-link-proxy:
+    image: ${NEMO_AI_LINK_PROXY_IMAGE:-haproxy:3.2.24-alpine}
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    ports:
+      - "${AI_TUNNEL_BIND_IP:?必须设置 WireGuard 本机地址}:5672:5672"
+      - "${AI_TUNNEL_BIND_IP:?必须设置 WireGuard 本机地址}:8103:8103"
+    volumes:
+      - ./haproxy/ai-link.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks: [ai, ai-link-egress]
+    depends_on:
+      rabbitmq: { condition: service_healthy }
+      question-service: { condition: service_healthy }
+    healthcheck:
+      test: [CMD, haproxy, -c, -q, -f, /usr/local/etc/haproxy/haproxy.cfg]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  ai-link-egress:
+    driver: bridge

@@ -1,0 +1,43 @@
+# 集成测试配置（仅 src/test，不会进入生产产物）
+#
+# 判题服务不直连数据库，因此这里不需要 DB 配置；
+# 但需要关闭注册中心，并为沙箱与内部凭据提供测试值，
+# 否则上下文加载会因缺少生产必填项而失败。
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 6
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+server:
+  port: 0
+
+knife4j:
+  enable: false
+
+judge:
+  # 测试环境不依赖真实沙箱：上下文加载测试不会触发实际判题，
+  # 指向本机端口即可（连通性由 SandboxHealthIndicator 在需要时判定）。
+  sandbox:
+    base-url: ${SANDBOX_BASE_URL:http://localhost:8090}
+    secret: ${SANDBOX_SECRET:it-sandbox-secret-0123456789}
+  lease:
+    seconds: 60
+
+# 集成测试用的内部凭据（仅测试环境，与生产无关）
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET:it-internal-secret-0123456789}

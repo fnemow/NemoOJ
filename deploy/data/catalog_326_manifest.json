@@ -1,0 +1,241 @@
+{
+  "baseCount": 306,
+  "totalProblems": 326,
+  "newProblems": 20,
+  "publicRange": [
+    307,
+    326
+  ],
+  "difficultyCounts": {
+    "简单": 6,
+    "中等": 9,
+    "困难": 5
+  },
+  "casesPerMode": 444,
+  "handCalculatedExamples": 40,
+  "referenceAndIoChecks": 888,
+  "sha256": "6080dbbccfc6332c5e0e95c2c605de893119a5e89a5e4b86948781afaa1e36ca",
+  "problems": [
+    {
+      "problemNo": 307,
+      "title": "字符串数组的最长公共前缀",
+      "tags": [
+        "简单",
+        "字符串",
+        "数组"
+      ],
+      "methodName": "longestArrayCommonPrefix",
+      "casesPerMode": 19
+    },
+    {
+      "problemNo": 308,
+      "title": "首个不重复字符的下标",
+      "tags": [
+        "简单",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "firstUniqueCharacterIndex",
+      "casesPerMode": 21
+    },
+    {
+      "problemNo": 309,
+      "title": "忽略非字母数字的回文判定",
+      "tags": [
+        "简单",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "isAlphanumericPalindrome",
+      "casesPerMode": 25
+    },
+    {
+      "problemNo": 310,
+      "title": "两个字符串的同构判定",
+      "tags": [
+        "简单",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "areStringsIsomorphic",
+      "casesPerMode": 25
+    },
+    {
+      "problemNo": 311,
+      "title": "单词与字符的映射规律",
+      "tags": [
+        "简单",
+        "字符串",
+        "哈希表"
+      ],
+      "methodName": "matchesWordPattern",
+      "casesPerMode": 14
+    },
+    {
+      "problemNo": 312,
+      "title": "大整数十进制字符串相加",
+      "tags": [
+        "简单",
+        "字符串",
+        "数学"
+      ],
+      "methodName": "addDecimalStrings",
+      "casesPerMode": 22
+    },
+    {
+      "problemNo": 313,
+      "title": "大整数十进制字符串相乘",
+      "tags": [
+        "中等",
+        "字符串",
+        "数学"
+      ],
+      "methodName": "multiplyDecimalStrings",
+      "casesPerMode": 22
+    },
+    {
+      "problemNo": 314,
+      "title": "版本号的数值比较",
+      "tags": [
+        "中等",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "compareVersionNumbers",
+      "casesPerMode": 21
+    },
+    {
+      "problemNo": 315,
+      "title": "文本转换为32位有符号整数",
+      "tags": [
+        "中等",
+        "字符串"
+      ],
+      "methodName": "parseSignedInteger",
+      "casesPerMode": 17
+    },
+    {
+      "problemNo": 316,
+      "title": "最长连续合法括号子串",
+      "tags": [
+        "困难",
+        "字符串",
+        "栈",
+        "动态规划"
+      ],
+      "methodName": "longestValidParenthesesLength",
+      "casesPerMode": 23
+    },
+    {
+      "problemNo": 317,
+      "title": "括号串补齐的最少插入次数",
+      "tags": [
+        "中等",
+        "字符串",
+        "栈"
+      ],
+      "methodName": "minimumParenthesesInsertions",
+      "casesPerMode": 23
+    },
+    {
+      "problemNo": 318,
+      "title": "恰好K种字符的子串数量",
+      "tags": [
+        "中等",
+        "字符串",
+        "滑动窗口",
+        "哈希表"
+      ],
+      "methodName": "countExactlyKDistinctSubstrings",
+      "casesPerMode": 22
+    },
+    {
+      "problemNo": 319,
+      "title": "最长重复子串的长度",
+      "tags": [
+        "困难",
+        "字符串"
+      ],
+      "methodName": "longestRepeatedSubstringLength",
+      "casesPerMode": 20
+    },
+    {
+      "problemNo": 320,
+      "title": "所有不同连续子串的数量",
+      "tags": [
+        "困难",
+        "字符串"
+      ],
+      "methodName": "countDistinctSubstrings",
+      "casesPerMode": 23
+    },
+    {
+      "problemNo": 321,
+      "title": "字典序最小的循环移位字符串",
+      "tags": [
+        "中等",
+        "字符串",
+        "双指针"
+      ],
+      "methodName": "minimumLexicographicRotation",
+      "casesPerMode": 22
+    },
+    {
+      "problemNo": 322,
+      "title": "两字符串相等的最小字符删除代价",
+      "tags": [
+        "中等",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "minimumAsciiDeletionCost",
+      "casesPerMode": 25
+    },
+    {
+      "problemNo": 323,
+      "title": "数字字符串的字母解码方案数",
+      "tags": [
+        "中等",
+        "字符串",
+        "动态规划"
+      ],
+      "methodName": "countDigitDecodings",
+      "casesPerMode": 23
+    },
+    {
+      "problemNo": 324,
+      "title": "恢复全部合法IPv4地址",
+      "tags": [
+        "中等",
+        "字符串",
+        "回溯"
+      ],
+      "methodName": "restoreIPv4Addresses",
+      "casesPerMode": 27
+    },
+    {
+      "problemNo": 325,
+      "title": "递归交换形成的扰乱字符串",
+      "tags": [
+        "困难",
+        "字符串",
+        "动态规划",
+        "递归"
+      ],
+      "methodName": "areScrambledStrings",
+      "casesPerMode": 27
+    },
+    {
+      "problemNo": 326,
+      "title": "拼接整个词组的全部起始位置",
+      "tags": [
+        "困难",
+        "字符串",
+        "滑动窗口",
+        "哈希表"
+      ],
+      "methodName": "findConcatenatedWordPositions",
+      "casesPerMode": 23
+    }
+  ]
+}

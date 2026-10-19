@@ -1,0 +1,47 @@
+/* Shared by ordinary pages and the independent problem workspace. */
+.user-shell {
+  color:var(--oj-text);
+  background:radial-gradient(ellipse at 65% 0,rgba(255,255,255,.035),transparent 55%),var(--oj-bg);
+}
+.user-shell .page { padding-top:32px; }
+.user-shell .page-title { font-size:26px; letter-spacing:-.02em; }
+.user-shell .page-lead { font-size:12px; line-height:1.7; margin-top:8px; }
+.user-shell .page-head { align-items:center; margin-bottom:22px; }
+.user-shell .surface {
+  min-width:0;
+  background:linear-gradient(125deg,#2d3036,#25272c);
+  border-color:var(--oj-border);
+  border-radius:12px;
+  box-shadow:0 10px 28px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.025);
+}
+.user-shell .el-button--primary:not(.is-link):not(.is-text) {
+  --el-button-bg-color:#4b76eb;
+  --el-button-border-color:#6b91f3;
+  --el-button-text-color:#fff;
+  --el-button-hover-text-color:#fff;
+  --el-button-hover-border-color:#9ab8ff;
+  background:linear-gradient(110deg,#416ce2,#6289f3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 3px 16px rgba(38,59,116,.15);
+}
+.user-shell .el-button--primary:not(.is-link):not(.is-text):hover { filter:brightness(1.08); }
+.user-shell .el-table {
+  --el-table-bg-color:#25272c;
+  --el-table-tr-bg-color:#25272c;
+  --el-table-header-bg-color:#30333a;
+  --el-table-row-hover-bg-color:#363b46;
+  --el-table-current-row-bg-color:#363b46;
+  --el-table-border-color:#383c44;
+  --el-table-text-color:#dce0e8;
+  --el-table-header-text-color:#b6becd;
+}
+.user-shell .el-table--striped .el-table__body tr.el-table__row--striped:not(.hover-row)>td.el-table__cell { background:#2b2e34; }
+.user-shell .el-table__cell { padding:12px 0; }
+.user-shell th.el-table__cell { padding:11px 0; font-size:12px; font-weight:600; }
+.user-shell .el-table__inner-wrapper::before { display:none; }
+.user-shell .el-input__wrapper,.user-shell .el-select__wrapper { min-height:34px; border-radius:8px; }
+.user-shell .el-input__inner,.user-shell .el-select__placeholder { font-size:13px; }
+@media(max-width:767px) {
+  .user-shell .page { padding-top:24px; }
+  .user-shell .page-title { font-size:23px; }
+  .user-shell .page-head { align-items:stretch; }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "id":"RBNode", "label":"红黑树节点", "description":"red=true 表示红色；null 表示黑色 NIL。旋转、父指针维护与平衡修复由用户实现。",
+    "java":"class RBNode {\n    public int val;\n    public boolean red;\n    public RBNode left, right, parent;\n    public RBNode(int val, boolean red) { this.val = val; this.red = red; }\n}",
+    "python":"class RBNode:\n    def __init__(self, val=0, red=True):\n        self.val = val\n        self.red = red\n        self.left = None\n        self.right = None\n        self.parent = None",
+    "cpp":"struct RBNode {\n    int val;\n    bool red;\n    RBNode *left, *right, *parent;\n    explicit RBNode(int val = 0, bool red = true)\n        : val(val), red(red), left(nullptr), right(nullptr), parent(nullptr) {}\n};"
+  },
+  {
+    "id":"NaryNode", "label":"多叉树节点", "description":"children 为按顺序保存的子节点列表，每个实例独立持有列表。",
+    "java":"class NaryNode {\n    public int val;\n    public java.util.List<NaryNode> children = new java.util.ArrayList<>();\n    public NaryNode(int val) { this.val = val; }\n}",
+    "python":"class NaryNode:\n    def __init__(self, val=0):\n        self.val = val\n        self.children = []",
+    "cpp":"struct NaryNode {\n    int val;\n    std::vector<NaryNode*> children;\n    explicit NaryNode(int val = 0) : val(val) {}\n};"
+  },
+  {
+    "id":"GraphNode", "label":"图节点", "description":"neighbors 保存邻接节点；允许环，算法需自行维护 visited，C++ 不递归释放邻居。",
+    "java":"class GraphNode {\n    public int val;\n    public java.util.List<GraphNode> neighbors = new java.util.ArrayList<>();\n    public GraphNode(int val) { this.val = val; }\n}",
+    "python":"class GraphNode:\n    def __init__(self, val=0):\n        self.val = val\n        self.neighbors = []",
+    "cpp":"struct GraphNode {\n    int val;\n    std::vector<GraphNode*> neighbors;\n    explicit GraphNode(int val = 0) : val(val) {}\n};"
+  },
+  {
+    "id":"RandomListNode", "label":"随机指针链表", "description":"next 为后继，random 为任意节点或 null；复制时需保持节点身份关系。",
+    "java":"class RandomListNode {\n    public int val;\n    public RandomListNode next, random;\n    public RandomListNode(int val) { this.val = val; }\n}",
+    "python":"class RandomListNode:\n    def __init__(self, val=0):\n        self.val = val\n        self.next = None\n        self.random = None",
+    "cpp":"struct RandomListNode {\n    int val;\n    RandomListNode *next, *random;\n    explicit RandomListNode(int val = 0) : val(val), next(nullptr), random(nullptr) {}\n};"
+  },
+  {
+    "id":"DoublyListNode", "label":"双向链表节点", "description":"prev/next 为前驱和后继；插入、删除时两侧链接由用户维护。",
+    "java":"class DoublyListNode {\n    public int val;\n    public DoublyListNode prev, next;\n    public DoublyListNode(int val) { this.val = val; }\n}",
+    "python":"class DoublyListNode:\n    def __init__(self, val=0):\n        self.val = val\n        self.prev = None\n        self.next = None",
+    "cpp":"struct DoublyListNode {\n    int val;\n    DoublyListNode *prev, *next;\n    explicit DoublyListNode(int val = 0) : val(val), prev(nullptr), next(nullptr) {}\n};"
+  },
+  {
+    "id":"TrieNode", "label":"Trie 字典树节点", "description":"children 下标对应 a..z，end 标识完整单词；插入与查询由用户实现。",
+    "java":"class TrieNode {\n    public TrieNode[] children = new TrieNode[26];\n    public boolean end = false;\n}",
+    "python":"class TrieNode:\n    def __init__(self):\n        self.children = [None] * 26\n        self.end = False",
+    "cpp":"struct TrieNode {\n    TrieNode* children[26] = {};\n    bool end = false;\n};"
+  },
+  {
+    "id":"UnionFind", "label":"并查集", "description":"编号 0..n-1；find 路径压缩、unite 按大小合并，count 返回集合数。",
+    "java":"class UnionFind {\n    private final int[] parent, size;\n    private int components;\n    public UnionFind(int n) {\n        if (n < 0) throw new IllegalArgumentException();\n        parent = new int[n]; size = new int[n]; components = n;\n        for (int i = 0; i < n; i++) { parent[i] = i; size[i] = 1; }\n    }\n    public int find(int x) {\n        if (x < 0 || x >= parent.length) throw new IndexOutOfBoundsException();\n        while (x != parent[x]) { parent[x] = parent[parent[x]]; x = parent[x]; }\n        return x;\n    }\n    public boolean unite(int a, int b) {\n        a = find(a); b = find(b);\n        if (a == b) return false;\n        if (size[a] < size[b]) { int t = a; a = b; b = t; }\n        parent[b] = a; size[a] += size[b]; components--; return true;\n    }\n    public boolean connected(int a, int b) { return find(a) == find(b); }\n    public int count() { return components; }\n}",
+    "python":"class UnionFind:\n    def __init__(self, n):\n        if n < 0:\n            raise ValueError('negative size')\n        self.parent = list(range(n))\n        self.size = [1] * n\n        self.components = n\n\n    def find(self, x):\n        if not 0 <= x < len(self.parent):\n            raise IndexError(x)\n        while x != self.parent[x]:\n            self.parent[x] = self.parent[self.parent[x]]\n            x = self.parent[x]\n        return x\n\n    def unite(self, a, b):\n        a, b = self.find(a), self.find(b)\n        if a == b:\n            return False\n        if self.size[a] < self.size[b]:\n            a, b = b, a\n        self.parent[b] = a\n        self.size[a] += self.size[b]\n        self.components -= 1\n        return True\n\n    def connected(self, a, b):\n        return self.find(a) == self.find(b)\n\n    def count(self):\n        return self.components",
+    "cpp":"class UnionFind {\n    std::vector<int> parent, size;\n    int components;\npublic:\n    explicit UnionFind(int n) : components(n) {\n        if (n < 0) throw std::invalid_argument(\"negative size\");\n        parent.resize(n); size.assign(n, 1);\n        for (int i = 0; i < n; ++i) parent[i] = i;\n    }\n    int find(int x) {\n        if (x < 0 || x >= (int)parent.size()) throw std::out_of_range(\"index\");\n        while (x != parent[x]) { parent[x] = parent[parent[x]]; x = parent[x]; }\n        return x;\n    }\n    bool unite(int a, int b) {\n        a = find(a); b = find(b);\n        if (a == b) return false;\n        if (size[a] < size[b]) { int t = a; a = b; b = t; }\n        parent[b] = a; size[a] += size[b]; --components; return true;\n    }\n    bool connected(int a, int b) { return find(a) == find(b); }\n    int count() const { return components; }\n};"
+  },
+  {
+    "id":"FenwickTree", "label":"树状数组", "description":"零起始 add(index,delta)；prefixSum(end) 返回 [0,end)，rangeSum(left,right) 返回 [left,right)。Java/C++ 使用 64 位和。",
+    "java":"class FenwickTree {\n    private final long[] tree;\n    public FenwickTree(int n) {\n        if (n < 0) throw new IllegalArgumentException();\n        tree = new long[n + 1];\n    }\n    public void add(int index, long delta) {\n        if (index < 0 || index >= tree.length - 1) throw new IndexOutOfBoundsException();\n        for (int i = index + 1; i < tree.length; i += i & -i) tree[i] += delta;\n    }\n    public long prefixSum(int end) {\n        if (end < 0 || end >= tree.length) throw new IndexOutOfBoundsException();\n        long sum = 0;\n        for (int i = end; i > 0; i -= i & -i) sum += tree[i];\n        return sum;\n    }\n    public long rangeSum(int left, int right) {\n        if (left > right) throw new IllegalArgumentException();\n        return prefixSum(right) - prefixSum(left);\n    }\n}",
+    "python":"class FenwickTree:\n    def __init__(self, n):\n        if n < 0:\n            raise ValueError('negative size')\n        self.tree = [0] * (n + 1)\n\n    def add(self, index, delta):\n        if not 0 <= index < len(self.tree) - 1:\n            raise IndexError(index)\n        i = index + 1\n        while i < len(self.tree):\n            self.tree[i] += delta\n            i += i & -i\n\n    def prefixSum(self, end):\n        if not 0 <= end < len(self.tree):\n            raise IndexError(end)\n        total = 0\n        while end > 0:\n            total += self.tree[end]\n            end -= end & -end\n        return total\n\n    def rangeSum(self, left, right):\n        if left > right:\n            raise ValueError('invalid range')\n        return self.prefixSum(right) - self.prefixSum(left)",
+    "cpp":"class FenwickTree {\n    std::vector<long long> tree;\npublic:\n    explicit FenwickTree(int n) {\n        if (n < 0) throw std::invalid_argument(\"negative size\");\n        tree.assign((size_t)n + 1, 0);\n    }\n    void add(int index, long long delta) {\n        if (index < 0 || (size_t)index >= tree.size() - 1) throw std::out_of_range(\"index\");\n        for (size_t i = (size_t)index + 1; i < tree.size(); i += i & -i) tree[i] += delta;\n    }\n    long long prefixSum(int end) const {\n        if (end < 0 || (size_t)end >= tree.size()) throw std::out_of_range(\"end\");\n        long long sum = 0;\n        for (size_t i = (size_t)end; i > 0; i -= i & -i) sum += tree[i];\n        return sum;\n    }\n    long long rangeSum(int left, int right) const {\n        if (left > right) throw std::invalid_argument(\"invalid range\");\n        return prefixSum(right) - prefixSum(left);\n    }\n};"
+  }
+]

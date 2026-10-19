@@ -1,0 +1,51 @@
+# 生产环境
+#
+# 关键约定：以下占位符 **不提供默认值**，缺失时启动即失败。
+# 沙箱密钥必须在判题端与沙箱端保持一致，且不得使用任何示例值。
+#   SANDBOX_BASE_URL / SANDBOX_SECRET
+#   REDIS_HOST / RABBITMQ_HOST / NACOS_SERVER_ADDR
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR}
+  data:
+    redis:
+      database: ${REDIS_DATABASE:0}
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    listener:
+      simple:
+        default-requeue-rejected: false
+        prefetch: ${RABBITMQ_PREFETCH:1}
+        concurrency: ${RABBITMQ_CONCURRENCY:2}
+
+server:
+  port: ${SERVER_PORT:8104}
+
+mybatis-plus:
+  configuration:
+    log-impl: ''
+
+knife4j:
+  enable: false
+  production: true
+
+judge:
+  sandbox:
+    base-url: ${SANDBOX_BASE_URL}
+    secret: ${SANDBOX_SECRET}
+    connect-timeout-ms: ${SANDBOX_CONNECT_TIMEOUT_MS:2000}
+    read-timeout-ms: ${SANDBOX_READ_TIMEOUT_MS:600000}
+
+# 内部服务调用凭据：所有业务服务必须配置为同一个值，长度 >= 16。
+# 不提供默认值——缺失时启动失败，避免内部接口在无有效凭据的情况下运行。
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET}

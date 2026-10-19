@@ -1,0 +1,8 @@
+# 与核心双机部署的三个 Compose 文件叠加使用；证书就绪后才启动 proxy。
+# 不修改 SSH 预览、业务服务、数据库或 WireGuard 的端口。
+services:
+  proxy:
+    mem_limit: 64m
+    volumes:
+      - ../nemo-frontend/dist:/usr/share/nginx/html:ro
+      - ./nginx/acme:/var/www/certbot:ro

@@ -1,0 +1,8 @@
+# Optional, reversible compilation cache and same-task repair evidence reuse.
+services:
+  sandbox:
+    environment:
+      SANDBOX_TRUSTED_COMPILE_CACHE_ENABLED: ${SANDBOX_TRUSTED_COMPILE_CACHE_ENABLED:-false}
+  question-service:
+    environment:
+      AI_PRIVATE_REPAIR_CHECKPOINT_REUSE_ENABLED: ${AI_PRIVATE_REPAIR_CHECKPOINT_REUSE_ENABLED:-false}

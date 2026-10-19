@@ -1,0 +1,47 @@
+# 开发环境：直连本机中间件，允许弱口令与调试开关。
+# 本文件中的凭据仅用于本地开发，禁止用于任何共享或线上环境。
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/nemo_oj?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      database: ${REDIS_DATABASE:5}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    listener:
+      simple:
+        default-requeue-rejected: false
+
+server:
+  port: ${SERVER_PORT:8103}
+  servlet:
+    session:
+      cookie:
+        secure: false
+        same-site: lax
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+knife4j:
+  enable: true
+
+# 内部服务调用凭据：网关剥离该头，业务服务校验它。
+# 本地开发用固定值即可；生产必须与所有服务保持一致并通过环境变量注入。
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET:dev-only-internal-token}

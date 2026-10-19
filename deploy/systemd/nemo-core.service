@@ -1,0 +1,17 @@
+[Unit]
+Description=NemoOJ core cloud stack
+Wants=network-online.target
+Requires=docker.service wg-quick@wg0.service
+After=network-online.target docker.service wg-quick@wg0.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/nemo-oj
+ExecStart=/usr/bin/docker compose --env-file deploy/.env -f deploy/docker-compose.yml -f deploy/compose.core-cloud.yml -f deploy/compose.core-4g-preview.yml up -d --no-build
+ExecStop=/usr/bin/docker compose --env-file deploy/.env -f deploy/docker-compose.yml -f deploy/compose.core-cloud.yml -f deploy/compose.core-4g-preview.yml stop
+TimeoutStartSec=180
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

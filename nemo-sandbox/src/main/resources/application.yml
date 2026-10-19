@@ -1,0 +1,77 @@
+# 公共配置：环境无关部分
+# 环境相关（端口、镜像、密钥）见 application-dev.yml / application-prod.yml
+spring:
+  application:
+    name: nemo-sandbox
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  address: 0.0.0.0
+  servlet:
+    context-path: /api
+
+knife4j:
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.nemo.project.controller
+
+# ===== 监控与健康检查（T10）=====
+management:
+  # 管理端点独立端口，仅内部网络可达（见 deploy/NETWORK-AND-SECURITY.md）
+  server:
+    port: ${MANAGEMENT_PORT:9190}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+      group:
+        # 存活只看应用自身。Docker 不可用属于依赖故障，重启容器解决不了，
+        # 反而会反复重启；该状态由启动校验与就绪判定负责。
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{requestId:-}] %logger{36} - %msg%n"
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
+  logback:
+    rollingpolicy:
+      max-file-size: ${LOG_MAX_FILE_SIZE:50MB}
+      max-history: ${LOG_MAX_HISTORY:7}
+      total-size-cap: ${LOG_TOTAL_SIZE_CAP:2GB}
+
+sandbox:
+  prewarm:
+    enabled: ${SANDBOX_PREWARM_ENABLED:false}
+  cleanup:
+    orphan-min-age-ms: ${SANDBOX_ORPHAN_MIN_AGE_MS:900000}
+    reaper-interval-ms: ${SANDBOX_REAPER_INTERVAL_MS:300000}
+  language:
+    enabled: ${JUDGE_ENABLED_LANGUAGES:${SANDBOX_LANGUAGES:java}}
+    modes:
+      java: ${JUDGE_JAVA_MODES:ACM,FUNCTION}
+      python: ${JUDGE_PYTHON_MODES:ACM,FUNCTION}
+      cpp: ${JUDGE_CPP_MODES:ACM,FUNCTION}
+  image:
+    python: ${SANDBOX_PYTHON_IMAGE:}
+    cpp: ${SANDBOX_CPP_IMAGE:}

@@ -1,0 +1,87 @@
+# 公共配置：环境无关部分
+# 本服务不直接访问数据库（题目与提交经 QuestionFeignClient 获取），因此没有 datasource 配置。
+spring:
+  application:
+    name: OJ-backend-judge-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  address: 0.0.0.0
+  servlet:
+    context-path: /api/judge
+
+knife4j:
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.nemo.project.controller
+
+judge:
+  codesandbox:
+    type: remote
+  language:
+    enabled: ${JUDGE_ENABLED_LANGUAGES:${JUDGE_LANGUAGES:java}}
+    modes:
+      java: ${JUDGE_JAVA_MODES:ACM,FUNCTION}
+      python: ${JUDGE_PYTHON_MODES:ACM,FUNCTION}
+      cpp: ${JUDGE_CPP_MODES:ACM,FUNCTION}
+  # 沙箱连接参数属环境相关配置，见 application-dev.yml / application-prod.yml
+  lease:
+    # 单次判题的执行租约时长。判题期间由心跳按 1/3 周期续租；
+    # 超过该时长未续租即视为失联，由题目服务的回收器接管重投。
+    seconds: ${JUDGE_LEASE_SECONDS:120}
+
+# ===== 监控与健康检查（T10）=====
+management:
+  # 管理端点使用独立端口，且不通过网关暴露（见 deploy/NETWORK-AND-SECURITY.md）。
+  # 部署时该端口必须只允许内部网络访问，不得对公网开放。
+  server:
+    port: ${MANAGEMENT_PORT:9104}
+  endpoints:
+    web:
+      exposure:
+        # 只暴露必要端点；env/beans/heapdump 等会泄漏配置或内存内容，一律不开放
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+      group:
+        # 存活：只包含应用自身状态。
+        # 绝不能把数据库/Redis/RabbitMQ 放进存活判定——中间件抖动会导致
+        # 容器被反复重启，而重启并不能修复依赖，反而放大故障。
+        liveness:
+          include: livenessState
+        # 就绪：反映"当前能否提供服务"，包含关键依赖
+        readiness:
+          # 判题服务不直连数据库，因此不含 db；沙箱不可达则无法判题，必须纳入
+          include: readinessState,rabbit,sandbox
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+# 日志模板：输出 requestId，使一次请求在多个服务中的日志可以串联。
+# 该值由 RequestIdFilter 校验后写入 MDC，跨服务经 Feign 透传。
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{requestId:-}] %logger{36} - %msg%n"
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.nemo: ${LOG_LEVEL_APP:INFO}
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
+  logback:
+    rollingpolicy:
+      # 日志轮转：单文件 50MB、保留 7 天、总量上限 2GB，避免磁盘被写满
+      max-file-size: ${LOG_MAX_FILE_SIZE:50MB}
+      max-history: ${LOG_MAX_HISTORY:7}
+      total-size-cap: ${LOG_TOTAL_SIZE_CAP:2GB}

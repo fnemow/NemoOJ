@@ -1,0 +1,214 @@
+# 公共配置：环境无关部分
+# 环境相关（数据库、Redis、RabbitMQ、Nacos、凭据）放在 application-dev.yml / application-prod.yml，
+# 只通过环境变量注入，避免真实凭据进入源码与产物。
+spring:
+  application:
+    name: OJ-backend-question-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # Redis Session：与 user 服务共享登录态，namespace 必须一致
+  session:
+    store-type: redis
+    timeout: 2592000
+    redis:
+      namespace: nemo-oj:session
+  # 生产者确认：用于可靠投递（T05）
+  rabbitmq:
+    publisher-confirm-type: correlated
+    publisher-returns: true
+  mail:
+    host: ${SMTP_HOST:}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:true}
+      mail.smtp.starttls.enable: ${SMTP_STARTTLS:true}
+      mail.smtp.starttls.required: ${SMTP_STARTTLS_REQUIRED:false}
+      mail.smtp.ssl.enable: ${SMTP_SSL:false}
+      mail.smtp.ssl.trust: ${SMTP_SSL_TRUST:}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+server:
+  address: 0.0.0.0
+  servlet:
+    context-path: /api/question
+    session:
+      cookie:
+        max-age: 2592000
+        path: "/api"
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+knife4j:
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.nemo.project.controller
+
+judge:
+  codesandbox:
+    type: example
+  language:
+    # 首发仅开放 Java
+    enabled: ${JUDGE_ENABLED_LANGUAGES:${JUDGE_LANGUAGES:java}}
+    modes:
+      java: ${JUDGE_JAVA_MODES:ACM,FUNCTION}
+      python: ${JUDGE_PYTHON_MODES:ACM,FUNCTION}
+      cpp: ${JUDGE_CPP_MODES:ACM,FUNCTION}
+  lease:
+    # 单个提交的最大执行次数，超过即判为系统错误终态，避免无限重投
+    max-attempts: ${JUDGE_LEASE_MAX_ATTEMPTS:3}
+    # 回收器扫描周期。恢复时间上界 = 租约时长 + 本周期 + 重投耗时
+    reclaim-interval-ms: ${JUDGE_LEASE_RECLAIM_INTERVAL_MS:30000}
+    reclaim-batch-size: ${JUDGE_LEASE_RECLAIM_BATCH_SIZE:50}
+
+# 发件箱投递（T05）。投递语义为至少一次，消费者必须幂等。
+outbox:
+  poll-interval-ms: ${OUTBOX_POLL_INTERVAL_MS:2000}
+  batch-size: ${OUTBOX_BATCH_SIZE:50}
+  # 单次投递持有的租约时长；实例崩溃后需等它过期才会被其它实例接管
+  lease-seconds: ${OUTBOX_LEASE_SECONDS:60}
+  # 等待 broker confirm 的时长；超时按失败处理并退避重试
+  confirm-timeout-ms: ${OUTBOX_CONFIRM_TIMEOUT_MS:5000}
+  max-retries: ${OUTBOX_MAX_RETRIES:8}
+  backoff-base-seconds: ${OUTBOX_BACKOFF_BASE_SECONDS:5}
+  backoff-max-seconds: ${OUTBOX_BACKOFF_MAX_SECONDS:600}
+  # 对账：提交超过该时长仍未完成即视为异常并分类报告
+  reconcile-interval-ms: ${OUTBOX_RECONCILE_INTERVAL_MS:60000}
+  reconcile-timeout-seconds: ${OUTBOX_RECONCILE_TIMEOUT_SECONDS:300}
+
+# 限流与容量（T09）。频率限制采用 Redis 滑动窗口，多实例共享同一配额。
+ratelimit:
+  # 仅在部署于可信反向代理之后才可开启；否则客户端可伪造 X-Forwarded-For 绕过 IP 限流
+  trust-forwarded-for: ${RATELIMIT_TRUST_XFF:false}
+  max-request-body-bytes: ${RATELIMIT_MAX_BODY_BYTES:1048576}
+  login:
+    ip-limit: ${RATELIMIT_LOGIN_IP:20}
+    account-limit: ${RATELIMIT_LOGIN_ACCOUNT:10}
+    window-seconds: ${RATELIMIT_LOGIN_WINDOW:300}
+  submit:
+    user-limit: ${RATELIMIT_SUBMIT_USER:20}
+    ip-limit: ${RATELIMIT_SUBMIT_IP:60}
+    window-seconds: ${RATELIMIT_SUBMIT_WINDOW:60}
+    # 单用户未完成提交配额：这是把判题队列打满的主要途径，必须限制
+    pending-quota: ${RATELIMIT_SUBMIT_PENDING:8}
+    pending-ttl-seconds: ${RATELIMIT_SUBMIT_PENDING_TTL:3600}
+submit:
+  max-code-bytes: ${SUBMIT_MAX_CODE_BYTES:524288}
+
+# ===== 监控与健康检查（T10）=====
+management:
+  # 管理端点使用独立端口，且不通过网关暴露（见 deploy/NETWORK-AND-SECURITY.md）。
+  # 部署时该端口必须只允许内部网络访问，不得对公网开放。
+  server:
+    port: ${MANAGEMENT_PORT:9103}
+  endpoints:
+    web:
+      exposure:
+        # 只暴露必要端点；env/beans/heapdump 等会泄漏配置或内存内容，一律不开放
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+      group:
+        # 存活：只包含应用自身状态。
+        # 绝不能把数据库/Redis/RabbitMQ 放进存活判定——中间件抖动会导致
+        # 容器被反复重启，而重启并不能修复依赖，反而放大故障。
+        liveness:
+          include: livenessState
+        # 就绪：反映"当前能否提供服务"，包含关键依赖
+        readiness:
+          include: readinessState,db,redis
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+# 日志模板：输出 requestId，使一次请求在多个服务中的日志可以串联。
+# 该值由 RequestIdFilter 校验后写入 MDC，跨服务经 Feign 透传。
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{requestId:-}] %logger{36} - %msg%n"
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.nemo: ${LOG_LEVEL_APP:INFO}
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
+  logback:
+    rollingpolicy:
+      # 日志轮转：单文件 50MB、保留 7 天、总量上限 2GB，避免磁盘被写满
+      max-file-size: ${LOG_MAX_FILE_SIZE:50MB}
+      max-history: ${LOG_MAX_HISTORY:7}
+      total-size-cap: ${LOG_TOTAL_SIZE_CAP:2GB}
+
+
+# Private problem verification compiles and executes six language/mode
+# combinations. Keep this longer than the judge's documented ten-minute
+# upper bound while still allowing operators to reduce it explicitly.
+spring.cloud.openfeign.client.config.OJ-backend-judge-service.readTimeout: ${JUDGE_FEIGN_READ_TIMEOUT_MS:600000}
+
+# AI is independently disabled unless an operator enables the feature after
+# configuring the external model provider and platform budgets.
+judge.admission:
+  max-pending: ${JUDGE_ADMISSION_MAX_PENDING:12}
+  max-oldest-seconds: ${JUDGE_ADMISSION_MAX_OLDEST_SECONDS:120}
+  retry-after-seconds: ${JUDGE_ADMISSION_RETRY_AFTER_SECONDS:5}
+
+ai:
+  training:
+    catalog-plans:
+      enabled: ${AI_CATALOG_PLANS_ENABLED:true}
+    batches:
+      enabled: ${AI_PRIVATE_BATCHES_ENABLED:true}
+  analysis:
+    enabled: ${AI_ANALYSIS_ENABLED:false}
+  learning:
+    enabled: ${AI_LEARNING_ENABLED:false}
+  private-problems:
+    enabled: ${AI_PRIVATE_PROBLEMS_ENABLED:false}
+  feedback:
+    enabled: ${AI_FEEDBACK_ENABLED:false}
+  maintenance:
+    enabled: ${AI_MAINTENANCE_ENABLED:false}
+  internal-secret: ${AI_INTERNAL_SECRET:}
+  model:
+    enabled: ${AI_MODEL_ENABLED:false}
+    provider: ${AI_MODEL_PROVIDER:}
+    id: ${AI_MODEL_ID:}
+    max-attempts: ${AI_MODEL_MAX_ATTEMPTS:2}
+    max-calls-per-task: ${AI_MODEL_MAX_CALLS_PER_TASK:4}
+  limits:
+    analysis-per-day: ${AI_ANALYSIS_PER_DAY:5}
+    tasks-per-minute: ${AI_TASKS_PER_MINUTE:5}
+  budget:
+    daily-usd: ${AI_DAILY_BUDGET_USD:0}
+    max-task-reservation-usd: ${AI_MAX_TASK_BUDGET_USD:0}
+  outbox:
+    poll-interval-ms: ${AI_OUTBOX_POLL_INTERVAL_MS:2000}
+    batch-size: ${AI_OUTBOX_BATCH_SIZE:20}
+    max-retries: ${AI_OUTBOX_MAX_RETRIES:8}
+  task-reaper:
+    poll-interval-ms: ${AI_TASK_REAPER_POLL_INTERVAL_MS:15000}
+  notification:
+    email: ${AI_ESCALATION_EMAIL:}
+    poll-interval-ms: ${AI_NOTIFICATION_POLL_INTERVAL_MS:10000}
+    max-retries: ${AI_NOTIFICATION_MAX_RETRIES:8}
+    batch-size: ${AI_NOTIFICATION_BATCH_SIZE:10}

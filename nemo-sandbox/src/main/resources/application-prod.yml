@@ -1,0 +1,25 @@
+# 生产环境
+#
+# 关键约定：沙箱鉴权密钥 **不提供默认值**。
+# 缺失 SANDBOX_SECRET 时启动即失败，不会退回到内置示例密钥。
+# 判题服务的 judge.sandbox.secret 必须配置为同一个值。
+server:
+  # 与判题服务 judge.sandbox.base-url 的约定端口一致（默认 8090）
+  port: ${SERVER_PORT:8090}
+
+# 沙箱并发与资源上限（容量预算见 T09 / T08）
+sandbox:
+  auth:
+    secret: ${SANDBOX_SECRET}
+  type: docker
+  auto-pull: false
+  image-validation:
+    enabled: true
+  image:
+    # 生产使用不可变 digest，避免可变标签被替换
+    java: ${SANDBOX_JAVA_IMAGE:}
+
+spring:
+  # 生产关闭公开文档端点
+  session:
+    timeout: 3600

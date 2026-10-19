@@ -1,0 +1,10 @@
+[Unit]
+Description=NemoOJ lightweight operational checks
+After=docker.service network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/nemo-oj/ops.env
+ExecStart=/usr/bin/python3 /usr/local/lib/nemo-ops/monitor.py --role ${NEMO_ROLE}
+UMask=0077
+TimeoutStartSec=120

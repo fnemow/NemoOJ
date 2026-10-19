@@ -1,0 +1,8 @@
+# Audited proof cache is private to judge; public/model requests cannot write it.
+services:
+  judge-service:
+    environment:
+      AI_TRUSTED_VALIDATION_CACHE_ENABLED: "true"
+      AI_TRUSTED_VALIDATION_CACHE_PATH: /var/lib/nemo-validation
+    volumes:
+      - /srv/nemo-oj/trusted-validation-cache:/var/lib/nemo-validation

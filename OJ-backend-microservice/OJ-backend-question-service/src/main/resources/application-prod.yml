@@ -1,0 +1,65 @@
+# 生产环境
+#
+# 关键约定：以下占位符 **不提供默认值**，缺失时启动即失败，不会回退到示例凭据。
+#   DB_URL / DB_USERNAME / DB_PASSWORD
+#   REDIS_HOST / RABBITMQ_HOST
+#   NACOS_SERVER_ADDR
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      connection-timeout: 10000
+  data:
+    redis:
+      database: ${REDIS_DATABASE:0}
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    listener:
+      simple:
+        # 消费失败不重回队列，进入 DLQ（重试由消费者内部完成）
+        default-requeue-rejected: false
+        # 限制未确认消息数，避免单实例囤积（容量预算见 T09）
+        prefetch: ${RABBITMQ_PREFETCH:5}
+        concurrency: ${RABBITMQ_CONCURRENCY:2}
+
+server:
+  port: ${SERVER_PORT:8103}
+  servlet:
+    session:
+      cookie:
+        secure: ${SESSION_COOKIE_SECURE:true}
+        http-only: true
+        same-site: lax
+
+mybatis-plus:
+  configuration:
+    log-impl: ''
+
+knife4j:
+  enable: false
+  production: true
+
+# 内部服务调用凭据：所有业务服务必须配置为同一个值，长度 >= 16。
+# 不提供默认值——缺失时启动失败，避免内部接口在无有效凭据的情况下运行。
+internal:
+  auth:
+    secret: ${INTERNAL_AUTH_SECRET}
+
+security:
+  csrf:
+    enabled: true
