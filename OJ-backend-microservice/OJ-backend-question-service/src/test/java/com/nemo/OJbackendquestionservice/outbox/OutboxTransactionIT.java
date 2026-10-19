@@ -6,6 +6,8 @@ import com.nemo.OJbackendmodel.model.entity.User;
 import com.nemo.OJbackendquestionservice.mapper.OutboxEventMapper;
 import com.nemo.OJbackendquestionservice.service.QuestionService;
 import com.nemo.OJbackendquestionservice.service.QuestionSubmitService;
+import com.nemo.OJserviceclient.JudgeFeignClient;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 /**
  * 发件箱事务性集成测试（需要真实 MySQL，且已执行 deploy/migration）。
@@ -30,6 +35,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ActiveProfiles("it")
 class OutboxTransactionIT {
+
+    // This suite exercises real DB transactions, not a deployed judge runtime.
+    // Keep the remote capability boundary deterministic without mocking writes.
+    @MockitoBean
+    private JudgeFeignClient judgeFeignClient;
+
+    @BeforeEach
+    void readyJavaRuntime() {
+        when(judgeFeignClient.capabilities()).thenReturn(List.of(Map.of(
+                "language", "java", "imageReady", true, "modes", List.of("ACM"))));
+    }
 
     @Autowired
     private QuestionSubmitService questionSubmitService;
