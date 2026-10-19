@@ -155,7 +155,10 @@ jobs:
           SANDBOX_SECRET: ci-sandbox-secret-0123456789
           SANDBOX_JAVA_IMAGE: eclipse-temurin:8-jdk-jammy
         run: |
-          mvn -s ../build/maven-settings.xml -B -P integration verify | tee /tmp/it-sbx.log
+          sudo env JAVA_HOME="$JAVA_HOME" PATH="$PATH" \
+            SANDBOX_SECRET="$SANDBOX_SECRET" SANDBOX_JAVA_IMAGE="$SANDBOX_JAVA_IMAGE" \
+            mvn -Dmaven.repo.local="$HOME/.m2/repository" \
+            -s ../build/maven-settings.xml -B -P integration verify | tee /tmp/it-sbx.log
           grep -qE "Tests run: [1-9][0-9]*, Failures: 0, Errors: 0" target/failsafe-reports/*.txt
 
       # 说明：本仓库当前的沙箱集成测试用例需要在 Linux + Docker 下运行，
