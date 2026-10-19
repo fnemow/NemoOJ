@@ -19,7 +19,6 @@ NemoOJ 是一个支持 Java 8、Python 3.12 和 C++17 的在线算法练习系�
 | `nemo-sandbox/` | Docker 隔离执行沙箱 |
 | `nemo-agent/` | Python / LangChain / LangGraph Agent |
 | `deploy/` | Compose、数据库迁移、部署与运维工具 |
-| `record/tutorials/` | Agent 和工作流教程及练习 |
 | `doc/`、`record/introduction/` | 项目设计文档 |
 
 ## 启动与部署

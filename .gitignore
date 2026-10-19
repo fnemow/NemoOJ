@@ -79,3 +79,6 @@ venv/
 *.key
 *.p12
 *.pfx
+
+# Personal learning materials stay local.
+/record/tutorials/

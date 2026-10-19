@@ -1,6 +1,0 @@
-[
-  {"problem_no":1,"title":"两数之和","tags":["数组","哈希表"],"difficulty":"简单"},
-  {"problem_no":3,"title":"二分查找","tags":["数组","二分查找"],"difficulty":"简单"},
-  {"problem_no":13,"title":"反转链表","tags":["链表","递归"],"difficulty":"简单"},
-  {"problem_no":16,"title":"二叉树最大深度","tags":["二叉树","深度优先搜索"],"difficulty":"简单"}
-]
