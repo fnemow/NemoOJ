@@ -34,6 +34,15 @@
         <maven.surefire.version>3.6.0</maven.surefire.version>
         <dependency-check.version>12.1.0</dependency-check.version>
         <micrometer.version>1.14.2</micrometer.version>
+        <!-- Compatible security overrides; keep entire library families aligned. -->
+        <security.jackson.version>2.21.8</security.jackson.version>
+        <security.netty.version>4.1.139.Final</security.netty.version>
+        <security.log4j.version>2.26.1</security.log4j.version>
+        <security.tomcat.version>10.1.61</security.tomcat.version>
+        <security.bouncycastle.version>1.86</security.bouncycastle.version>
+        <security.rabbitmq.version>5.37.0</security.rabbitmq.version>
+        <security.httpclient5.version>5.6.3</security.httpclient5.version>
+        <security.httpcore5.version>5.4.3</security.httpcore5.version>
     </properties>
 
     <!-- 所有子模块统一使用的依赖 (不会因为版本问题冲突) -->
@@ -53,6 +62,66 @@
     <!-- 依赖版本管理 (子模块按需声明，不自动继承) -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId><artifactId>httpclient5</artifactId>
+                <version>${security.httpclient5.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5</artifactId>
+                <version>${security.httpcore5.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5-h2</artifactId>
+                <version>${security.httpcore5.version}</version>
+            </dependency>
+            <!-- Overrides precede the Boot BOM; imported BOM order is significant. -->
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${security.jackson.version}</version>
+                <type>pom</type><scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>${security.netty.version}</version>
+                <type>pom</type><scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${security.log4j.version}</version>
+                <type>pom</type><scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId>
+                <version>${security.tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-el</artifactId>
+                <version>${security.tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-websocket</artifactId>
+                <version>${security.tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId><artifactId>bcprov-jdk18on</artifactId>
+                <version>${security.bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId><artifactId>bcpkix-jdk18on</artifactId>
+                <version>${security.bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId><artifactId>bcutil-jdk18on</artifactId>
+                <version>${security.bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rabbitmq</groupId><artifactId>amqp-client</artifactId>
+                <version>${security.rabbitmq.version}</version>
+            </dependency>
+
             <!-- Spring Boot BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

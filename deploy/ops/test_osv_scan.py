@@ -1,4 +1,5 @@
 import importlib.util
+import io
 from pathlib import Path
 import tempfile
 import unittest
@@ -31,6 +32,11 @@ class DependencyParsingTest(unittest.TestCase):
             with patch.object(scan.sys, 'argv', ['osv-scan.py', str(path)]), patch.object(scan, 'query_osv') as query:
                 self.assertEqual(scan.main(), 2)
                 query.assert_not_called()
+
+    def test_partial_osv_response_cannot_report_a_clean_scan(self):
+        for payload in [b'{}', b'{"results": []}', b'{"results": [null]}']:
+            with patch.object(scan.urllib.request, 'urlopen', return_value=io.BytesIO(payload)):
+                with self.assertRaises(ValueError): scan.query_osv([('g', 'a', '1.0')])
 
 
 if __name__ == '__main__':

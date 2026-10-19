@@ -1,0 +1,12 @@
+{
+  "reviewedAt": "2026-10-19",
+  "expiresAt": "2026-11-18",
+  "status": "mitigated-not-version-fixed",
+  "scope": "Current source and CI; deployment requires separate acceptance",
+  "records": [
+    {"dependency": "org.springframework:spring-webmvc", "version": "6.2.19", "id": "GHSA-pc63-qcmh-9cmg", "cve": "CVE-2026-47884", "reason": "REST-only return handlers reject explicit and implicit views; XSLT views/resolvers are rejected at startup", "reference": "https://spring.io/security/cve-2026-47884/"},
+    {"dependency": "org.springframework:spring-webmvc", "version": "6.2.19", "id": "GHSA-j9f9-w8pj-32f8", "cve": "CVE-2026-47890", "reason": "HTML fragments are forbidden; submission SSE uses JSON payloads with injection regression coverage", "reference": "https://spring.io/security/cve-2026-47890/"},
+    {"dependency": "org.springframework:spring-webflux", "version": "6.2.19", "id": "GHSA-j9f9-w8pj-32f8", "cve": "CVE-2026-47890", "reason": "Gateway forwards REST traffic; application sources cannot introduce fragment rendering or functional view endpoints", "reference": "https://spring.io/security/cve-2026-47890/"},
+    {"dependency": "org.springframework:spring-webflux", "version": "6.2.19", "id": "GHSA-9qf2-26p9-2q2q", "cve": "CVE-2026-47892", "reason": "Servlet services reject functional routers and reactive DispatcherHandler; gateway rejects DispatcherServlet", "reference": "https://spring.io/security/cve-2026-47892/"}
+  ]
+}

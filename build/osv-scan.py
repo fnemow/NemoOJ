@@ -72,7 +72,10 @@ def query_osv(deps):
             method="POST")
         with urllib.request.urlopen(req, timeout=120) as resp:
             body = json.loads(resp.read().decode("utf-8"))
-        for dep, item in zip(chunk, body.get("results", [])):
+        items = body.get("results")
+        if not isinstance(items, list) or len(items) != len(chunk) or any(not isinstance(i, dict) for i in items):
+            raise ValueError("Incomplete OSV batch response; refusing a partial security scan")
+        for dep, item in zip(chunk, items):
             for vuln in item.get("vulns", []) or []:
                 results.append({"dep": dep, "vuln": vuln})
         print(f"  已扫描 {min(start + BATCH_SIZE, len(deps))}/{len(deps)} 个依赖",
