@@ -2,5 +2,9 @@
 # 沙箱是纯计算服务，不依赖数据库；此前曾传递引入 mybatis-plus 触发 DataSource 自动配置，
 # 现已在 pom 中移除该依赖，不再需要 exclude 数据源自动配置。
 sandbox:
+  auth:
+    secret: ${SANDBOX_SECRET:ci-test-only-sandbox-secret-0123456789}
+  image:
+    java: ${SANDBOX_JAVA_IMAGE:eclipse-temurin:8-jdk-jammy}
   image-validation:
     enabled: false
