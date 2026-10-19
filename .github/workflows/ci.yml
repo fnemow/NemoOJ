@@ -107,6 +107,13 @@ jobs:
           MYSQL_PWD: ci-root-password
         run: |
           mysql -h 127.0.0.1 -uroot -D nemo_oj_it < deploy/migration/V1__baseline_schema.sql
+          # V1's fresh-install snapshot already contains V7 fields. Reconstruct
+          # the pre-V7 schema ONLY in this empty disposable CI database so every
+          # original migration can be exercised, without editing deployed SQL.
+          mysql -h 127.0.0.1 -uroot -D nemo_oj_it <<'SQL'
+          ALTER TABLE question_submit DROP INDEX uk_submit_user_request, DROP COLUMN clientRequestId, DROP COLUMN requestHash;
+          ALTER TABLE question DROP INDEX idx_question_source, DROP COLUMN rowVersion, DROP COLUMN sourceQuestionId;
+          SQL
           chmod +x deploy/migration/apply_migrations.sh
           ./deploy/migration/apply_migrations.sh \
             --host 127.0.0.1 --user root --database nemo_oj_it --baseline-through V1
