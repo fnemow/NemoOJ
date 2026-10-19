@@ -2,7 +2,8 @@
   "version": "business-v1",
   "origin": "原创合成数据；不含真实用户、源码或生产隐藏用例",
   "cases": 60,
-  "sha256": "b469c5f543a612115aa33d7e77dc946a85f8e31fa2098c90d16417f6ac308ae4",
+  "sha256": "29df8e64cedd5b4bd1e5d78c1990e26fd93cd230c357052c738bb19e375692cf",
+  "hashLineEndings": "LF",
   "counts": {
     "ANALYSIS": 20,
     "FEEDBACK": 4,

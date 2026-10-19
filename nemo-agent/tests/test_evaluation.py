@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from nemo_agent.evaluation.data import default_dataset, digest, load_cases
+from nemo_agent.evaluation.data import corpus_sha256, default_dataset, digest, load_cases
 from nemo_agent.evaluation.reporting import compare_reports
 from nemo_agent.evaluation.runner import BudgetExceeded, EvalRecorder, InputIsolationError
 from nemo_agent.evaluation.scoring import make_report, score_case
@@ -33,8 +33,19 @@ def test_original_corpus_is_fixed_and_all_business_suites_are_covered(cases):
     assert {c.task for c in cases} == {'ANALYSIS', 'PRIVATE_PROBLEM', 'PLAN', 'SITE_HELP', 'FEEDBACK', 'INSPECTION'}
     assert sum(c.split == 'holdout' for c in cases) == 19
     pinned = json.loads(default_dataset().with_name('business-v1.manifest.json').read_text(encoding='utf-8'))
-    import hashlib
-    assert hashlib.sha256(default_dataset().read_bytes()).hexdigest() == pinned['sha256']
+    assert corpus_sha256(default_dataset()) == pinned['sha256']
+
+
+def test_corpus_pin_ignores_checkout_line_endings_but_detects_edits(tmp_path):
+    original = default_dataset().read_bytes().replace(b'\r\n', b'\n')
+    lf = tmp_path / 'lf.jsonl'
+    crlf = tmp_path / 'crlf.jsonl'
+    changed = tmp_path / 'changed.jsonl'
+    lf.write_bytes(original)
+    crlf.write_bytes(original.replace(b'\n', b'\r\n'))
+    changed.write_bytes(original.replace(b'ANALYSIS', b'INSPECTION', 1))
+    assert corpus_sha256(lf) == corpus_sha256(crlf) == corpus_sha256(default_dataset())
+    assert corpus_sha256(changed) != corpus_sha256(lf)
 
 
 def test_site_help_quality_is_separate_from_valid_schema(cases):

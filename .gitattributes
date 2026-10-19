@@ -1,0 +1,2 @@
+# Keep fixed evaluation data identical across Windows and Linux checkouts.
+nemo-agent/evaluation/*.jsonl text eol=lf
