@@ -27,7 +27,11 @@ class CanonicalAnswerValidationTest {
         when(factory.newInstance(anyString())).thenReturn(sandbox);
         when(caps.snapshot()).thenReturn(List.of("java","python","cpp").stream().map(l->Map.<String,Object>of("language",l,"runtimeId",l,"imageDigest",immutable?"runtime@sha256:"+"a".repeat(64):"runtime:mutable","imageReady",true,"modes",List.of("ACM","FUNCTION"))).toList());
         var built=new AtomicInteger();
-        when(acm.buildExecutionPlan(any(),any())).thenAnswer(c->plan(false));when(fn.buildExecutionPlan(any(),any())).thenAnswer(c->{var p=plan(true);int n=built.incrementAndGet();if(changedHarness)p.setSourceFiles(List.of(new SourceFile("runner.py","version="+n)));return p;});
+        when(acm.buildExecutionPlan(any(),any())).thenAnswer(c->plan(false));when(fn.buildExecutionPlan(any(),any())).thenAnswer(c->{var p=plan(true);int n=built.incrementAndGet();
+            // Real adapters bind the submitted source to each execution plan.
+            // Empty mock plans could falsely share oracle evidence depending on thread timing.
+            QuestionSubmit submit=c.getArgument(1);
+            p.setSourceFiles(List.of(new SourceFile("solution.py",submit.getCode()+(changedHarness?"\n# harness="+n:""))));return p;});
         var accepted=new JudgeInfo();accepted.setMessage("accepted");when(manager.doJudgeV2(any(),any())).thenReturn(accepted);
         AtomicInteger calls=new AtomicInteger();
         when(sandbox.executeCodeV2(any())).thenAnswer(c->{
