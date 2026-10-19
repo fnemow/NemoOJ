@@ -110,6 +110,11 @@ jobs:
           chmod +x deploy/migration/apply_migrations.sh
           ./deploy/migration/apply_migrations.sh \
             --host 127.0.0.1 --user root --database nemo_oj_it --baseline-through V1
+          # Baseline only records V1 and exits; apply V2 onward separately.
+          ./deploy/migration/apply_migrations.sh \
+            --host 127.0.0.1 --user root --database nemo_oj_it
+          mysql -h 127.0.0.1 -uroot -D nemo_oj_it --batch --skip-column-names \
+            -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='user' AND INDEX_NAME='uk_user_userAccount' AND NON_UNIQUE=0" | grep -qx '1'
 
       - name: 微服务集成测试
         working-directory: OJ-backend-microservice
