@@ -52,7 +52,11 @@ jobs:
       - name: 沙箱单元测试
         working-directory: nemo-sandbox
         run: |
-          mvn -s ../build/maven-settings.xml -B clean test | tee /tmp/unit-sbx.log
+          # Workspace/cache permissions deliberately assign gid 65534. Match the
+          # trusted root sandbox service, without weakening its permission checks.
+          sudo env JAVA_HOME="$JAVA_HOME" PATH="$PATH" \
+            mvn -Dmaven.repo.local="$HOME/.m2/repository" \
+            -s ../build/maven-settings.xml -B clean test | tee /tmp/unit-sbx.log
           if ! grep -qE "Tests run: [1-9][0-9]*, Failures: 0, Errors: 0" /tmp/unit-sbx.log; then
             echo "::error::沙箱单元测试未实际执行"
             exit 1
